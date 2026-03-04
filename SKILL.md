@@ -7,32 +7,18 @@ description: Manage Userorbit resources via the public API. Create and manage fe
 
 Manage Userorbit resources programmatically via the REST API.
 
-## Setup (run once per machine)
+## Setup
 
-Before the first API call, check that both files below exist. If either is missing, create them.
-
-**1. Credentials file `~/.userorbit-secrets`** — ask the user for their API key and team ID (available in Settings → API), then create:
+Before the first API call, check that `~/.userorbit-secrets` exists. If missing, ask the user for their API key and team ID (available in Settings → API), then create it:
 
 ```
 export USERORBIT_API_KEY="<key>"
 export USERORBIT_TEAM_ID="<team-id>"
 ```
 
-**2. Helper script `~/.userorbit-api.sh`** — create with these exact contents and `chmod +x`:
+## Making API calls
 
-```bash
-#!/bin/bash
-source ~/.userorbit-secrets
-ENDPOINT="$1"
-if [ -n "$2" ]; then BODY="$2"; else BODY='{}'; fi
-exec curl -s -X POST "https://api.userorbit.com/api/v1/${ENDPOINT}" \
-  -H "Authorization: Bearer ${USERORBIT_API_KEY}" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: ${USERORBIT_TEAM_ID}" \
-  -d "${BODY}"
-```
-
-## API Convention
+Use the helper script at `~/.userorbit-api.sh` to make API calls. If it doesn't exist, create it by reading the template from `~/.claude/skills/userorbit/api-helper.sh` and copying it to `~/.userorbit-api.sh`, then `chmod +x`.
 
 - Base URL: `https://api.userorbit.com/api/v1`
 - All endpoints use **POST**
@@ -41,9 +27,9 @@ exec curl -s -X POST "https://api.userorbit.com/api/v1/${ENDPOINT}" \
 - List response: `{ "pagination": { "offset", "limit", "total" }, "data": [...] }`
 - Error response: `{ "error": "..." }`
 
-```bash
-~/.userorbit-api.sh announcements.list '{"limit": 5}' | jq '.data'
-```
+Usage: `~/.userorbit-api.sh <endpoint> '[json body]'`
+
+Example: `~/.userorbit-api.sh announcements.list '{"limit": 5}' | jq '.data'`
 
 ## Resources
 
@@ -261,40 +247,18 @@ Associate tags with feedback boards.
 ## Common Workflows
 
 ### Create and publish an announcement
-
-```bash
-# 1. List categories to find the right collectionId
-~/.userorbit-api.sh collections.list | jq '.data[] | {id, name}'
-
-# 2. Create and publish
-~/.userorbit-api.sh announcements.create '{"collectionId": "<id>", "title": "Dark Mode", "text": "We shipped dark mode...", "meta": {"description": "Dark mode is here"}, "publish": true}' | jq '.data'
-```
+1. Call `collections.list` to find the right `collectionId`
+2. Call `announcements.create` with `collectionId`, `title`, `text`, `meta`, and `publish: true`
 
 ### Add a topic to a roadmap
-
-```bash
-# 1. List roadmaps
-~/.userorbit-api.sh roadmaps.list | jq '.data[] | {id, name}'
-
-# 2. Get stages
-~/.userorbit-api.sh roadmaps.stages '{"id": "<roadmap-id>"}' | jq '.data[] | {id, title}'
-
-# 3. Create topic
-~/.userorbit-api.sh topics.create '{"title": "API v2", "roadmapId": "<id>", "stageId": "<id>", "publish": true}' | jq '.data'
-```
+1. Call `roadmaps.list` to find the `roadmapId`
+2. Call `roadmaps.stages` with the `id` to find the `stageId`
+3. Call `topics.create` with `title`, `roadmapId`, `stageId`, and `publish: true`
 
 ### Publish a help center article
-
-```bash
-# 1. List collections
-~/.userorbit-api.sh article-collections.list | jq '.data[] | {id, name}'
-
-# 2. Create article
-~/.userorbit-api.sh articles.create '{"title": "Getting Started", "text": "# Getting Started\n\nWelcome to...", "collectionIds": ["<id>"]}' | jq '.data.id'
-
-# 3. Publish
-~/.userorbit-api.sh articles.publish '{"id": "<article-id>"}' | jq '.data'
-```
+1. Call `article-collections.list` to find collection IDs
+2. Call `articles.create` with `title`, `text`, and `collectionIds`
+3. Call `articles.publish` with the article `id`
 
 ## Detailed API Reference
 
