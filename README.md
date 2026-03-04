@@ -61,14 +61,7 @@ Then reference the file in your agent's system prompt or context configuration.
 
 ## Authentication
 
-On first use, the agent will ask for your **API key** and **team ID** (available in **Settings → API** in your Userorbit workspace).
-
-Set them as environment variables:
-
-```bash
-export USERORBIT_API_KEY="your-api-key"
-export USERORBIT_TEAM_ID="your-team-id"
-```
+On first use, the agent will ask for your **API key** and **team ID** (available in **Settings → API** in your Userorbit workspace). It creates a credentials file at `~/.userorbit-secrets` and a helper script at `~/.userorbit-api.sh` that handles authentication automatically for all subsequent calls.
 
 ## Usage examples
 

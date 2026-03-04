@@ -7,16 +7,30 @@ description: Manage Userorbit resources via the public API. Create and manage fe
 
 Manage Userorbit resources programmatically via the REST API.
 
-## Authentication
+## Setup (run once per machine)
 
-All requests require two headers:
+Before the first API call, check that both files below exist. If either is missing, create them.
+
+**1. Credentials file `~/.userorbit-secrets`** — ask the user for their API key and team ID (available in Settings → API), then create:
 
 ```
-Authorization: Bearer $USERORBIT_API_KEY
-x-team-id: $USERORBIT_TEAM_ID
+export USERORBIT_API_KEY="<key>"
+export USERORBIT_TEAM_ID="<team-id>"
 ```
 
-If these environment variables aren't set, ask the user for their API key and team ID.
+**2. Helper script `~/.userorbit-api.sh`** — create with these exact contents and `chmod +x`:
+
+```bash
+#!/bin/bash
+source ~/.userorbit-secrets
+ENDPOINT="$1"
+if [ -n "$2" ]; then BODY="$2"; else BODY='{}'; fi
+exec curl -s -X POST "https://api.userorbit.com/api/v1/${ENDPOINT}" \
+  -H "Authorization: Bearer ${USERORBIT_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -H "x-team-id: ${USERORBIT_TEAM_ID}" \
+  -d "${BODY}"
+```
 
 ## API Convention
 
@@ -28,11 +42,7 @@ If these environment variables aren't set, ask the user for their API key and te
 - Error response: `{ "error": "..." }`
 
 ```bash
-curl -s -X POST "https://api.userorbit.com/api/v1/announcements.list" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{"limit": 5}'
+~/.userorbit-api.sh announcements.list '{"limit": 5}' | jq '.data'
 ```
 
 ## Resources
@@ -254,68 +264,36 @@ Associate tags with feedback boards.
 
 ```bash
 # 1. List categories to find the right collectionId
-curl -s -X POST "https://api.userorbit.com/api/v1/collections.list" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{}'
+~/.userorbit-api.sh collections.list | jq '.data[] | {id, name}'
 
 # 2. Create and publish
-curl -s -X POST "https://api.userorbit.com/api/v1/announcements.create" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{"collectionId": "<id>", "title": "Dark Mode", "text": "We shipped dark mode...", "meta": {"description": "Dark mode is here"}, "publish": true}'
+~/.userorbit-api.sh announcements.create '{"collectionId": "<id>", "title": "Dark Mode", "text": "We shipped dark mode...", "meta": {"description": "Dark mode is here"}, "publish": true}' | jq '.data'
 ```
 
 ### Add a topic to a roadmap
 
 ```bash
 # 1. List roadmaps
-curl -s -X POST "https://api.userorbit.com/api/v1/roadmaps.list" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{}'
+~/.userorbit-api.sh roadmaps.list | jq '.data[] | {id, name}'
 
-# 2. Get stages for a roadmap
-curl -s -X POST "https://api.userorbit.com/api/v1/roadmaps.stages" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{"id": "<roadmap-id>"}'
+# 2. Get stages
+~/.userorbit-api.sh roadmaps.stages '{"id": "<roadmap-id>"}' | jq '.data[] | {id, title}'
 
-# 3. Create topic on a stage
-curl -s -X POST "https://api.userorbit.com/api/v1/topics.create" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{"title": "API v2", "roadmapId": "<id>", "stageId": "<id>", "publish": true}'
+# 3. Create topic
+~/.userorbit-api.sh topics.create '{"title": "API v2", "roadmapId": "<id>", "stageId": "<id>", "publish": true}' | jq '.data'
 ```
 
 ### Publish a help center article
 
 ```bash
-# 1. List help center collections
-curl -s -X POST "https://api.userorbit.com/api/v1/article-collections.list" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{}'
+# 1. List collections
+~/.userorbit-api.sh article-collections.list | jq '.data[] | {id, name}'
 
 # 2. Create article
-curl -s -X POST "https://api.userorbit.com/api/v1/articles.create" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{"title": "Getting Started", "text": "# Getting Started\n\nWelcome to...", "collectionIds": ["<id>"]}'
+~/.userorbit-api.sh articles.create '{"title": "Getting Started", "text": "# Getting Started\n\nWelcome to...", "collectionIds": ["<id>"]}' | jq '.data.id'
 
 # 3. Publish
-curl -s -X POST "https://api.userorbit.com/api/v1/articles.publish" \
-  -H "Authorization: Bearer $USERORBIT_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "x-team-id: $USERORBIT_TEAM_ID" \
-  -d '{"id": "<article-id>"}'
+~/.userorbit-api.sh articles.publish '{"id": "<article-id>"}' | jq '.data'
 ```
 
 ## Detailed API Reference
