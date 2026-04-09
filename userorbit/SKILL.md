@@ -1,13 +1,12 @@
 ---
 name: userorbit
 description: Manage Userorbit resources via the public API. Create and manage feedback, announcements, roadmap topics, help center articles, boards, tags, subscribers, and more.
-credentials:
-  - name: USERORBIT_API_KEY
-    description: Userorbit API key (from Settings → API)
-    required: true
-  - name: USERORBIT_TEAM_ID
-    description: Userorbit team ID (from Settings → API)
-    required: true
+metadata:
+  clawdbot:
+    requires:
+      env:
+        - USERORBIT_API_KEY
+        - USERORBIT_TEAM_ID
 ---
 
 # Userorbit API
