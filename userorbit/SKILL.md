@@ -1,6 +1,13 @@
 ---
 name: userorbit
 description: Manage Userorbit resources via the public API. Create and manage feedback, announcements, roadmap topics, help center articles, boards, tags, subscribers, and more.
+credentials:
+  - name: USERORBIT_API_KEY
+    description: Userorbit API key (from Settings → API)
+    required: true
+  - name: USERORBIT_TEAM_ID
+    description: Userorbit team ID (from Settings → API)
+    required: true
 ---
 
 # Userorbit API
@@ -9,16 +16,11 @@ Manage Userorbit resources programmatically via the REST API.
 
 ## Setup
 
-Before the first API call, check that `~/.userorbit-secrets` exists. If missing, ask the user for their API key and team ID (available in Settings → API), then create it:
-
-```
-export USERORBIT_API_KEY="<key>"
-export USERORBIT_TEAM_ID="<team-id>"
-```
+Before the first API call, verify that `USERORBIT_API_KEY` and `USERORBIT_TEAM_ID` environment variables are set. If they are missing, ask the user to provide them (available in Settings → API or from the Userorbit onboarding page).
 
 ## Making API calls
 
-Use the helper script at `~/.userorbit-api.sh` to make API calls. If it doesn't exist, create it by reading the template from `~/.claude/skills/userorbit/api-helper.sh` and copying it to `~/.userorbit-api.sh`, then `chmod +x`.
+Use `curl` directly with the environment variables:
 
 - Base URL: `https://api.userorbit.com/api/v1`
 - All endpoints use **POST**
@@ -27,9 +29,23 @@ Use the helper script at `~/.userorbit-api.sh` to make API calls. If it doesn't 
 - List response: `{ "pagination": { "offset", "limit", "total" }, "data": [...] }`
 - Error response: `{ "error": "..." }`
 
-Usage: `~/.userorbit-api.sh <endpoint> '[json body]'`
+Usage:
+```bash
+curl -s -X POST "https://api.userorbit.com/api/v1/<endpoint>" \
+  -H "Authorization: Bearer ${USERORBIT_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -H "x-team-id: ${USERORBIT_TEAM_ID}" \
+  -d '<json body>'
+```
 
-Example: `~/.userorbit-api.sh announcements.list '{"limit": 5}' | jq '.data'`
+Example:
+```bash
+curl -s -X POST "https://api.userorbit.com/api/v1/announcements.list" \
+  -H "Authorization: Bearer ${USERORBIT_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -H "x-team-id: ${USERORBIT_TEAM_ID}" \
+  -d '{"limit": 5}' | jq '.data'
+```
 
 ## Resources
 
