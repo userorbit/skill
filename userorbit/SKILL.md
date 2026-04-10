@@ -19,8 +19,6 @@ Before the first API call, verify that `USERORBIT_API_KEY` and `USERORBIT_TEAM_I
 
 ## Making API calls
 
-Use `curl` directly with the environment variables:
-
 - Base URL: `https://api.userorbit.com/api/v1`
 - All endpoints use **POST**
 - Endpoint format: `<resource>.<action>` (e.g., `announcements.list`, `feedbacks.create`)
@@ -31,18 +29,18 @@ Use `curl` directly with the environment variables:
 Usage:
 ```bash
 curl -s -X POST "https://api.userorbit.com/api/v1/<endpoint>" \
-  -H "Authorization: Bearer ${USERORBIT_API_KEY}" \
+  -H "Authorization: Bearer $(printenv USERORBIT_API_KEY)" \
   -H "Content-Type: application/json" \
-  -H "x-team-id: ${USERORBIT_TEAM_ID}" \
+  -H "x-team-id: $(printenv USERORBIT_TEAM_ID)" \
   -d '<json body>'
 ```
 
 Example:
 ```bash
 curl -s -X POST "https://api.userorbit.com/api/v1/announcements.list" \
-  -H "Authorization: Bearer ${USERORBIT_API_KEY}" \
+  -H "Authorization: Bearer $(printenv USERORBIT_API_KEY)" \
   -H "Content-Type: application/json" \
-  -H "x-team-id: ${USERORBIT_TEAM_ID}" \
+  -H "x-team-id: $(printenv USERORBIT_TEAM_ID)" \
   -d '{"limit": 5}' | jq '.data'
 ```
 
