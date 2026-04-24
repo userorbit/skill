@@ -1,6 +1,6 @@
 ---
 name: userorbit
-description: Manage Userorbit resources via the public API. Create and manage feedback, announcements, roadmap topics, help center articles, boards, tags, subscribers, and more.
+description: Manage Userorbit resources via the public API. Create and manage feedback, roadmap-visible feedback statuses, announcements, help center articles, boards, tags, subscribers, and more.
 metadata:
   clawdbot:
     requires:
@@ -129,6 +129,8 @@ Set `publish: true` to publish immediately. Use `scheduledAt` (ISO date) to sche
 | Delete | `roadmaps.delete` | `id` |
 | Stages | `roadmaps.stages` | `id` |
 
+Roadmap views are backed by feedback filtered by `status`, not topic records. To add or move an item in the roadmap view, create or update feedback with the desired status.
+
 ### Stages
 
 Columns within a roadmap (e.g., "Planned", "In Progress", "Done").
@@ -140,28 +142,6 @@ Columns within a roadmap (e.g., "Planned", "In Progress", "Done").
 | Get | `stages.info` | `id` |
 | Update | `stages.update` | `id` |
 | Delete | `stages.delete` | `id` |
-
-### Topics (Roadmap Items)
-
-Items that live on a roadmap stage.
-
-| Operation | Endpoint | Required fields |
-|-----------|----------|-----------------|
-| Create | `topics.create` | `title` |
-| List | `topics.list` | `roadmapId`, `stageId` |
-| Get | `topics.info` | `id` |
-| Update | `topics.update` | `id` |
-| Delete | `topics.delete` | `id` |
-| Count | `topics.count` | - |
-
-### Topic Comments
-
-| Operation | Endpoint | Required fields |
-|-----------|----------|-----------------|
-| Create | `topic-comments.create` | `id` (topicId), `text` |
-| List | `topic-comments.list` | `id` (topicId) |
-| Update | `topic-comments.update` | `id`, `text` |
-| Delete | `topic-comments.delete` | `id` |
 
 ### Articles (Help Center)
 
@@ -263,10 +243,10 @@ Associate tags with feedback boards.
 1. Call `collections.list` to find the right `collectionId`
 2. Call `announcements.create` with `collectionId`, `title`, `text`, `meta`, and `publish: true`
 
-### Add a topic to a roadmap
-1. Call `roadmaps.list` to find the `roadmapId`
-2. Call `roadmaps.stages` with the `id` to find the `stageId`
-3. Call `topics.create` with `title`, `roadmapId`, `stageId`, and `publish: true`
+### Add an item to the roadmap view
+1. Call `feedbacks.create` with `title`, optional `text`, and the target `status`
+2. Use `status: "in_review"` for review, `"planned"` for planned work, `"in_progress"` for active work, or `"completed"` for shipped work
+3. To move an existing item, call `feedbacks.update` with the feedback `id` and new `status`
 
 ### Publish a help center article
 1. Call `article-collections.list` to find collection IDs

@@ -15,9 +15,6 @@ All endpoints use POST. Auth via `Authorization: Bearer $USERORBIT_API_KEY` head
 - [Collections (Announcement Categories)](#collections)
 - [Roadmaps](#roadmaps)
 - [Stages](#stages)
-- [Topics (Roadmap Items)](#topics)
-- [Topic Comments](#topic-comments)
-- [Topic Collaborators](#topic-collaborators)
 - [Articles (Help Center)](#articles)
 - [Article Collections](#article-collections)
 - [Article Votes](#article-votes)
@@ -384,6 +381,8 @@ No required fields.
 
 ## Roadmaps
 
+Roadmap views are populated from feedback filtered by `status`. Use `feedbacks.create` and `feedbacks.update` to add or move roadmap-visible items.
+
 ### roadmaps.create
 
 | Field | Type | Required | Notes |
@@ -436,10 +435,9 @@ No required fields.
 
 ### stages.info / stages.delete
 
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| id | UUID | yes | |
-| force | boolean | no | (delete only) Force-delete associated topics |
+| Field | Type | Required |
+|-------|------|----------|
+| id | UUID | yes |
 
 ### stages.update
 
@@ -448,125 +446,6 @@ No required fields.
 | id | UUID | yes |
 | title | string | no |
 | meta | object | no |
-
----
-
-## Topics
-
-### topics.create
-
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| title | string | yes | |
-| text | string | no | Markdown content |
-| description | string | no | |
-| roadmapId | UUID | no | |
-| stageId | UUID | no | |
-| meta | object | no | `{ ctaTitle, ctaLink, ctaImage, description, feedback, projectId }` |
-| collaboratorIds | UUID[] | no | |
-| publish | boolean | no | |
-
-### topics.list / topics.all
-
-| Field | Type | Required |
-|-------|------|----------|
-| roadmapId | UUID | yes |
-| stageId | UUID | yes |
-
-### topics.info / topics.delete
-
-| Field | Type | Required |
-|-------|------|----------|
-| id | UUID | yes |
-
-### topics.update
-
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| id | UUID | yes | |
-| title | string | no | |
-| text | string | no | |
-| stageId | UUID | no | Move to different stage |
-| meta | object | no | |
-| collaboratorIds | UUID[] | no | |
-| publish | boolean | no | |
-| private | boolean | no | |
-| notifySubscribers | boolean | no | Default: true |
-| recipientSubscriberIds | UUID[] | no | |
-
-### topics.count
-
-No required fields.
-
-### topic-subscribers.list
-
-| Field | Type | Required |
-|-------|------|----------|
-| topicId | UUID | yes |
-
----
-
-## Topic Comments
-
-### topic-comments.create
-
-| Field | Type | Required |
-|-------|------|----------|
-| id | UUID | yes |
-| text | string | yes |
-| subscriberId | UUID | no |
-| parentId | UUID | no |
-| source | string | no |
-
-### topic-comments.list
-
-| Field | Type | Required |
-|-------|------|----------|
-| id | UUID | yes |
-
-### topic-comments.update
-
-| Field | Type | Required |
-|-------|------|----------|
-| id | UUID | yes |
-| text | string | yes |
-
-### topic-comments.delete
-
-| Field | Type | Required |
-|-------|------|----------|
-| id | UUID | yes |
-
----
-
-## Topic Collaborators
-
-### topic-collaborators.create
-
-| Field | Type | Required |
-|-------|------|----------|
-| topicId | UUID | yes |
-| role | string | yes |
-
-### topic-collaborators.list
-
-| Field | Type | Required |
-|-------|------|----------|
-| topicId | UUID | yes |
-
-### topic-collaborators.update
-
-| Field | Type | Required |
-|-------|------|----------|
-| id | UUID | yes |
-| role | string | no |
-| topicId | UUID | no |
-
-### topic-collaborators.delete
-
-| Field | Type | Required |
-|-------|------|----------|
-| id | UUID | yes |
 
 ---
 
@@ -872,25 +751,6 @@ No required fields.
   "updatedAt": "ISO date",
   "createdBy": {},
   "updatedBy": {}
-}
-```
-
-### Topic (Roadmap Item)
-```json
-{
-  "id": "UUID",
-  "title": "string",
-  "description": "string",
-  "text": "string",
-  "roadmapId": "UUID",
-  "stageId": "UUID",
-  "creatorId": "UUID",
-  "publishedAt": "ISO date|null",
-  "meta": {},
-  "collaboratorIds": [],
-  "createdAt": "ISO date",
-  "updatedAt": "ISO date",
-  "votes_count": 0
 }
 ```
 

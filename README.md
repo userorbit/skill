@@ -8,7 +8,7 @@ After deploying a feature, tell your agent to publish a changelog, update the ro
 
 - **Feedback** — create, list, update, archive, vote, comment, organize into boards
 - **Announcements** — draft, publish, schedule, pin, categorize product updates
-- **Roadmaps** — create roadmaps with stages, add and move topics between stages
+- **Roadmaps** — manage roadmap-visible feedback by status (`in_review`, `planned`, `in_progress`, `completed`)
 - **Help Center** — write, publish, version, and manage article revisions
 - **Subscribers** — create, search, and manage subscriber records
 - **Organization** — tags, projects, collections for categorization
