@@ -574,14 +574,14 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 @media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:44px;padding:56px 0 64px}.hero-copy{padding-right:0}.hero-side{border-left:0;padding:0}}
 
 .prism{position:relative;isolation:isolate;overflow:hidden;background:
-  repeating-linear-gradient(93deg,rgba(255,255,255,.14) 0 1px,transparent 1px 46px),
-  repeating-linear-gradient(87deg,rgba(255,255,255,.08) 0 1px,transparent 1px 17px),
-  radial-gradient(130% 170% at 50% -30%,#cdbcff 0%,#8b5cff 34%,#5b2ee0 62%,#2a1266 100%)}
+  repeating-conic-gradient(from -34deg at 50% -90%,rgba(255,255,255,.09) 0deg .8deg,transparent .8deg 6.5deg),
+  repeating-conic-gradient(from -30deg at 50% -90%,rgba(255,255,255,.05) 0deg .4deg,transparent .4deg 3.1deg),
+  radial-gradient(115% 200% at 50% -45%,#d7cbff 0%,#9d7bff 32%,#6432e8 60%,#351580 84%,#1d0b4e 100%)}
 .prism::after{content:"";position:absolute;inset:0;z-index:-1;background-image:${GRAIN};mix-blend-mode:overlay;opacity:.9;pointer-events:none}
 .prism.teal{background:
-  repeating-linear-gradient(93deg,rgba(255,255,255,.14) 0 1px,transparent 1px 46px),
-  repeating-linear-gradient(87deg,rgba(255,255,255,.08) 0 1px,transparent 1px 17px),
-  radial-gradient(130% 170% at 50% -30%,#a8f0e4 0%,#14b8a6 40%,#0b7a6e 66%,#053832 100%)}
+  repeating-conic-gradient(from -34deg at 50% -90%,rgba(255,255,255,.09) 0deg .8deg,transparent .8deg 6.5deg),
+  repeating-conic-gradient(from -30deg at 50% -90%,rgba(255,255,255,.05) 0deg .4deg,transparent .4deg 3.1deg),
+  radial-gradient(115% 200% at 50% -45%,#b5f2e7 0%,#2dd4bf 32%,#0d9488 60%,#0b5a52 84%,#042f2a 100%)}
 .band{padding:72px 0}
 
 .term{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 0 70px -22px rgba(124,77,255,.35);padding:24px 26px;overflow-x:auto;text-align:left}
