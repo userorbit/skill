@@ -562,8 +562,6 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .btn-light{background:#fff;color:#16171d;box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
 
 .hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;padding-block:64px 76px}
-.hero .by{margin-bottom:22px}
-.hero .by a{color:var(--ink)}
 .hero h1{margin:0 0 22px;font-size:clamp(34px,4.6vw,60px)}
 .hero .sub{font-size:17.5px;color:var(--muted);max-width:520px;margin:0 0 10px}
 .hero .fine{font-size:14px;color:var(--faint);margin-bottom:36px}
@@ -908,7 +906,6 @@ const indexBody = `
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow by">by <a href="https://userorbit.com">Userorbit</a></p>
       <h1>Ship the Feature.<br><span class="hl">Everything Else Is One Prompt.</span></h1>
       <p class="sub">The open-source skill that turns Claude Code, Codex, Cursor — any coding agent — into your product ops team on <a href="https://userorbit.com">Userorbit</a>. Changelog published, roadmap updated, feedback answered, docs drafted — before the deploy finishes.</p>
       <p class="fine">Open source · works with any agent that reads SKILL.md</p>
