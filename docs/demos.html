@@ -10,28 +10,32 @@
 <meta property="og:description" content="Publish interactive product demos and turn them into documentation. How to manage demos in Userorbit with an AI coding agent via the API and MCP.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://userorbit.github.io/skill/demos.html">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%238b7cf6%22/><circle cx=%2250%22 cy=%2250%22 r=%2216%22 fill=%22white%22/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%234f30e8%22/><circle cx=%2250%22 cy=%2250%22 r=%2217%22 fill=%22white%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
+<header class="site">
   <div class="wrap nav">
-    <a class="logo" href="index.html">Userorbit <span>Skill</span></a>
+    <a class="logo" href="index.html">USERORBIT<span class="mark">+( skill )</span></a>
     <a class="item" href="index.html#features">Features</a>
     <a class="item" href="index.html#setup">Setup</a>
+    <a class="item" href="blog/index.html">Blog</a>
     <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
     <a class="cta" href="https://userorbit.com">userorbit.com</a>
   </div>
 </header>
-<main>
-  <div class="wrap">
 
-    <p class="eyebrow"><a href="index.html">Userorbit Skill</a> / Demos</p>
+<article class="doc">
+  <div class="narrow">
+    <p class="eyebrow"><a href="index.html">Userorbit Skill</a><span class="sep">/</span>Demos</p>
     <h1>Interactive Demos</h1>
     <p class="tagline">Publish interactive product demos and turn them into documentation.</p>
     <p>Interactive demos are pixel-perfect, clickable captures of your product recorded with the Userorbit Chrome extension. Once captured, the skill lets your agent do everything else: polish step copy, publish, duplicate for variants, and read engagement analytics.</p>
     <p>The standout: <code>demo-articles.create</code> generates a help center article draft from a demo's captured steps — your demo becomes a how-to guide in one call.</p>
-    <div class="callout"><p>This guide covers the agent skill and API. For the full product, see <a href="https://userorbit.com/interactive-product-demos">Userorbit interactive demos</a>.</p></div>
+    <div class="note"><p>This guide covers the agent skill and API. For the full product, see <a href="https://userorbit.com/interactive-product-demos">Userorbit interactive demos</a>.</p></div>
 
     <h2>Ask your agent</h2>
     <ul class="prompts">
@@ -41,7 +45,7 @@
     </ul>
 
     <h2>Endpoints</h2>
-    <p class="muted">All endpoints are <code>POST https://api.userorbit.com/api/v1/&lt;endpoint&gt;</code> with a Bearer API key and <code>x-team-id</code> header.</p>
+    <p>All endpoints are <code>POST https://api.userorbit.com/api/v1/&lt;endpoint&gt;</code> with a Bearer API key and <code>x-team-id</code> header.</p>
     <div class="table-scroll">
     <table>
       <thead><tr><th>Endpoint</th><th>What it does</th></tr></thead>
@@ -57,20 +61,23 @@
     </div>
 
     <h2>Example</h2>
-    <pre><code>curl -s -X POST "https://api.userorbit.com/api/v1/demos.analytics" \
+    <div class="term">
+      <div class="term-label"><span>Example</span><span>demos</span></div>
+      <pre><code>curl -s -X POST "https://api.userorbit.com/api/v1/demos.analytics" \
   -H "Authorization: Bearer $USERORBIT_API_KEY" \
   -H "Content-Type: application/json" \
   -H "x-team-id: $USERORBIT_TEAM_ID" \
   -d '{"id": "&lt;demo-id&gt;"}'</code></pre>
-    <p class="muted">Full request and response schemas: <a href="https://github.com/userorbit/skill/blob/main/userorbit/references/api.md">references/api.md</a>.</p>
+    </div>
+    <p style="margin-top:16px;color:var(--muted)">Full request and response schemas: <a href="https://github.com/userorbit/skill/blob/main/userorbit/references/api.md">references/api.md</a>.</p>
 
     <div class="pagenav">
       <a href="tours.html">&larr; Product Tours</a>
       <a href="checklists.html">Onboarding Checklists &rarr;</a>
     </div>
   </div>
-</main>
-<footer>
+</article>
+<footer class="site">
   <div class="wrap">
     <div class="cols">
       <div>
@@ -93,7 +100,7 @@
         </ul>
       </div>
       <div>
-        <h4>This skill</h4>
+        <h4>Skill guides</h4>
         <ul>
           <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
           <li><a href="feedback.html">Feedback</a></li>
@@ -110,8 +117,20 @@
           <li><a href="subscribers.html">Subscribers</a></li>
         </ul>
       </div>
+      <div>
+        <h4>From the blog</h4>
+        <ul>
+          <li><a href="blog/ai-product-management.html">AI Product Management</a></li>
+          <li><a href="blog/close-the-feedback-loop-with-ai-agents.html">Close the Loop</a></li>
+          <li><a href="blog/ai-customer-support-triage.html">AI Support Triage</a></li>
+          <li><a href="blog/index.html">All posts</a></li>
+        </ul>
+      </div>
     </div>
-    <p>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</p>
+    <div class="base">
+      <span>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</span>
+      <span>MIT licensed</span>
+    </div>
   </div>
 </footer>
 </body>

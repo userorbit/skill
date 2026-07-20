@@ -10,66 +10,147 @@
 <meta property="og:description" content="An agent skill that teaches Claude Code, Codex, and Cursor to manage Userorbit: feedback, roadmap, announcements, help center, tours, demos, surveys, support inbox, and analytics via the API.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://userorbit.github.io/skill/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%238b7cf6%22/><circle cx=%2250%22 cy=%2250%22 r=%2216%22 fill=%22white%22/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%234f30e8%22/><circle cx=%2250%22 cy=%2250%22 r=%2217%22 fill=%22white%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
+<header class="site">
   <div class="wrap nav">
-    <a class="logo" href="index.html">Userorbit <span>Skill</span></a>
+    <a class="logo" href="index.html">USERORBIT<span class="mark">+( skill )</span></a>
     <a class="item" href="index.html#features">Features</a>
     <a class="item" href="index.html#setup">Setup</a>
+    <a class="item" href="blog/index.html">Blog</a>
     <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
     <a class="cta" href="https://userorbit.com">userorbit.com</a>
   </div>
 </header>
-<main>
+
+<section class="hero">
   <div class="wrap">
-
-    <p class="eyebrow">Agent skill for Userorbit</p>
-    <h1>Run your whole product workflow from your coding agent</h1>
-    <p class="tagline">The Userorbit skill teaches Claude Code, Codex, Cursor, and any other AI coding agent to manage <a href="https://userorbit.com">Userorbit</a> — feedback, roadmap, changelog, help center, tours, demos, surveys, and the support inbox — straight from your terminal.</p>
-
-    <pre><code>claude install-skill https://github.com/userorbit/skill</code></pre>
-
-    <p>Ship a feature, then tell your agent: <em>"Publish a changelog, mark the related feedback as completed, and draft a help article."</em> It's done before you've opened a browser tab.</p>
-
-    <h2 id="features">What it can do</h2>
-    <div class="grid">
-      <a class="card" href="feedback.html"><h3>Feedback Management</h3><p>Collect, triage, and close the loop on user feedback from your terminal.</p></a>
-      <a class="card" href="roadmap.html"><h3>Public Roadmap</h3><p>Keep your public roadmap in sync with what you actually ship.</p></a>
-      <a class="card" href="announcements.html"><h3>Announcements & Changelog</h3><p>Publish product updates the moment the deploy goes green.</p></a>
-      <a class="card" href="help-center.html"><h3>Help Center Articles</h3><p>Write and publish documentation with the agent that wrote the code.</p></a>
-      <a class="card" href="tours.html"><h3>Product Tours</h3><p>Build, publish, and translate in-app product tours programmatically.</p></a>
-      <a class="card" href="demos.html"><h3>Interactive Demos</h3><p>Publish interactive product demos and turn them into documentation.</p></a>
-      <a class="card" href="checklists.html"><h3>Onboarding Checklists</h3><p>Ship guided onboarding checklists without touching the dashboard.</p></a>
-      <a class="card" href="surveys.html"><h3>In-App Surveys</h3><p>Launch targeted in-app surveys from a prompt.</p></a>
-      <a class="card" href="support.html"><h3>Support Inbox</h3><p>Triage, reply, and resolve support threads with your agent.</p></a>
-      <a class="card" href="workflows.html"><h3>Support Workflows</h3><p>Automate support with trigger-driven workflow graphs.</p></a>
-      <a class="card" href="analytics.html"><h3>Product Analytics</h3><p>Query active users, new users, and event trends straight from your agent.</p></a>
-      <a class="card" href="subscribers.html"><h3>Subscribers & Contacts</h3><p>Manage the people behind the feedback, votes, and support threads.</p></a>
+    <svg class="orbit-mark" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="22" cy="22" r="19" stroke="#4f30e8" stroke-width="2.5" opacity="0.35"/><circle cx="22" cy="22" r="8" fill="#4f30e8"/><circle cx="37.5" cy="11" r="4" fill="#a9a2ff"/></svg>
+    <h1>The Product Toolkit <span class="hl">for Coding Agents</span></h1>
+    <p class="sub">One skill teaches Claude Code, Codex, Cursor — any AI agent — to run <a href="https://userorbit.com">Userorbit</a>: feedback, roadmap, changelog, help center, tours, demos, surveys, and support.</p>
+    <p class="fine">Free and open source. One SKILL.md, 150+ endpoints.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#setup">Get started</a>
+      <a class="btn btn-secondary" href="#features">Explore the guides</a>
+      <a class="btn btn-secondary" href="https://github.com/userorbit/skill">View on GitHub</a>
     </div>
-
-    <h2 id="setup">Setup</h2>
-    <h3>Claude Code</h3>
-    <pre><code>claude install-skill https://github.com/userorbit/skill</code></pre>
-    <h3>Codex</h3>
-    <pre><code>git clone https://github.com/userorbit/skill.git ~/.codex/skills/userorbit</code></pre>
-    <h3>Any other agent</h3>
-    <p>Clone the repo and point your agent's context at <code>userorbit/SKILL.md</code>. There's also a hosted MCP server at <code>https://api.userorbit.com/mcp</code> if your tool speaks MCP.</p>
-
-    <h3>Authentication</h3>
-    <p>Grab an API key and team ID from <strong>Settings &rarr; API</strong> in your <a href="https://userorbit.com">Userorbit</a> workspace, then:</p>
-    <pre><code>export USERORBIT_API_KEY="uo_..."
-export USERORBIT_TEAM_ID="..."</code></pre>
-    <p class="muted">Read-only keys can call list/info/count/search endpoints; read/write keys can call everything.</p>
-
-    <h2>How it works</h2>
-    <p>Every Userorbit resource is a <code>POST</code> endpoint at <code>https://api.userorbit.com/api/v1/&lt;resource&gt;.&lt;action&gt;</code>. The skill gives your agent a compact map of all of them — 150+ endpoints — plus required fields, enums, and common workflows, so it can chain calls correctly: find the collection, create the announcement, publish it.</p>
-    <div class="callout"><p>New to Userorbit? It's a customer engagement platform for collecting <a href="https://userorbit.com/feedback-boards">feedback</a>, sharing a <a href="https://userorbit.com/product-roadmap">public roadmap</a>, publishing <a href="https://userorbit.com/announcements">announcements</a>, onboarding users with <a href="https://userorbit.com/product-tours">tours</a> and <a href="https://userorbit.com/checklists">checklists</a>, and running <a href="https://userorbit.com/customer-support">support</a> — with <a href="https://userorbit.com/product-analytics">product analytics</a> built in. <a href="https://userorbit.com/pricing">See pricing</a>.</p></div>
   </div>
-</main>
-<footer>
+</section>
+
+<div class="prism band">
+  <div class="wrap"><div class="term" style="max-width:760px;margin:0 auto">
+  <div class="term-label"><span>Agent session</span><span>claude&nbsp;code</span></div>
+  <pre><code><span class="cmd">$ claude "we shipped dark mode — update userorbit"</span>
+
+<span class="c-ok">&#10003;</span> <span class="c-key">feedbacks.list</span>        <span class="c-dim">3 matching items found</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">feedbacks.update</span>      status &rarr; <span class="c-str">completed</span>  <span class="c-dim">&times;3</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">announcements.create</span>  <span class="c-str">"Dark mode is here"</span> — published
+<span class="c-ok">&#10003;</span> <span class="c-key">articles.create</span>       draft: <span class="c-str">"Using dark mode"</span>
+
+<span class="c-dim">Roadmap, changelog &amp; help center updated. 0 browser tabs opened.</span></code></pre>
+</div></div>
+</div>
+
+<section class="block" id="setup">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Getting started</p>
+      <h2>Install once, prompt forever</h2>
+      <p class="lead">Add the skill to your agent, export an API key from <strong>Settings &rarr; API</strong> in your Userorbit workspace, and every product chore becomes a one-line prompt.</p>
+      <p class="lead" style="margin-top:14px">Read-only keys can call list/info/count/search endpoints; read/write keys can call everything. If your tool speaks MCP, there is also a hosted server at <code>api.userorbit.com/mcp</code>.</p>
+    </div>
+    <div>
+      <div class="install-card">
+        <span class="k">Claude Code</span>
+        <code>claude install-skill https://github.com/userorbit/skill</code>
+      </div>
+      <div class="install-card">
+        <span class="k">Codex</span>
+        <code>git clone https://github.com/userorbit/skill.git ~/.codex/skills/userorbit</code>
+      </div>
+      <div class="install-card">
+        <span class="k">Any agent</span>
+        <code>git clone https://github.com/userorbit/skill.git &amp;&amp; point context at userorbit/SKILL.md</code>
+      </div>
+      <div class="install-card">
+        <span class="k">Authenticate</span>
+        <code>export USERORBIT_API_KEY="uo_..."<br>export USERORBIT_TEAM_ID="..."</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="features">
+  <div class="wrap">
+    <p class="eyebrow">Feature guides</p>
+    <h2>Everything your agent can run</h2>
+    <div class="grid">
+      <a class="card" href="feedback.html"><span class="num">01</span><h3>Feedback Management</h3><p>Collect, triage, and close the loop on user feedback from your terminal.</p></a>
+      <a class="card" href="roadmap.html"><span class="num">02</span><h3>Public Roadmap</h3><p>Keep your public roadmap in sync with what you actually ship.</p></a>
+      <a class="card" href="announcements.html"><span class="num">03</span><h3>Announcements & Changelog</h3><p>Publish product updates the moment the deploy goes green.</p></a>
+      <a class="card" href="help-center.html"><span class="num">04</span><h3>Help Center Articles</h3><p>Write and publish documentation with the agent that wrote the code.</p></a>
+      <a class="card" href="tours.html"><span class="num">05</span><h3>Product Tours</h3><p>Build, publish, and translate in-app product tours programmatically.</p></a>
+      <a class="card" href="demos.html"><span class="num">06</span><h3>Interactive Demos</h3><p>Publish interactive product demos and turn them into documentation.</p></a>
+      <a class="card" href="checklists.html"><span class="num">07</span><h3>Onboarding Checklists</h3><p>Ship guided onboarding checklists without touching the dashboard.</p></a>
+      <a class="card" href="surveys.html"><span class="num">08</span><h3>In-App Surveys</h3><p>Launch targeted in-app surveys from a prompt.</p></a>
+      <a class="card" href="support.html"><span class="num">09</span><h3>Support Inbox</h3><p>Triage, reply, and resolve support threads with your agent.</p></a>
+      <a class="card" href="workflows.html"><span class="num">10</span><h3>Support Workflows</h3><p>Automate support with trigger-driven workflow graphs.</p></a>
+      <a class="card" href="analytics.html"><span class="num">11</span><h3>Product Analytics</h3><p>Query active users, new users, and event trends straight from your agent.</p></a>
+      <a class="card" href="subscribers.html"><span class="num">12</span><h3>Subscribers & Contacts</h3><p>Manage the people behind the feedback, votes, and support threads.</p></a>
+    </div>
+  </div>
+</section>
+
+<div class="dark-block">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Why it works</p>
+      <h2>The agent that ships the code closes the loop</h2>
+      <p class="lead" style="margin-top:14px">Your coding agent already knows what changed — it wrote the diff. The skill gives it a compact map of every Userorbit endpoint, required fields, enums, and workflows, so it can chain calls correctly: find the collection, create the announcement, publish it.</p>
+      <ul class="checks">
+        <li>Changelog entries written from the actual diff</li>
+        <li>Feedback closed and voters notified when the fix ships</li>
+        <li>Roadmap moves itself — columns are live views over feedback status</li>
+        <li>Help articles drafted by the agent that built the feature</li>
+        <li>Support triaged with your docs and codebase in context</li>
+      </ul>
+    </div>
+    <div>
+      <div class="stats">
+        <div class="stat"><span class="n">150+</span><span class="l">API endpoints mapped</span></div>
+        <div class="stat"><span class="n">12</span><span class="l">feature areas covered</span></div>
+        <div class="stat"><span class="n">2</span><span class="l">ways to connect — skill or hosted MCP</span></div>
+      </div>
+      <div class="term" style="margin-top:40px">
+        <div class="term-label"><span>How it works</span><span>rest api</span></div>
+        <pre><code><span class="c-dim"># every resource is one POST away</span>
+<span class="cmd">POST</span> <span class="c-key">https://api.userorbit.com/api/v1/&lt;resource&gt;.&lt;action&gt;</span>
+
+<span class="c-dim">Authorization:</span> Bearer <span class="c-str">$USERORBIT_API_KEY</span>
+<span class="c-dim">x-team-id:</span> <span class="c-str">$USERORBIT_TEAM_ID</span></code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow">From the blog</p>
+    <h2>AI product management, in practice</h2>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
+      <a class="card" href="blog/ai-product-management.html"><span class="num">Jul 20, 2026</span><h3>What Is AI Product Management? A Practical Guide</h3><p>Coding agents stopped being autocomplete a while ago. Here's what changes when the agent that ships your feature also triages the feedback, updates the roadmap, and writes the changelog.</p></a>
+      <a class="card" href="blog/close-the-feedback-loop-with-ai-agents.html"><span class="num">Jul 17, 2026</span><h3>Close the Feedback Loop Automatically with a Coding Agent</h3><p>Users who ask for a feature and never hear back stop asking. Here's the one-prompt workflow that makes closing the loop part of every deploy.</p></a>
+      <a class="card" href="blog/ai-customer-support-triage.html"><span class="num">Jul 14, 2026</span><h3>AI Support Triage: An Agent Working Your Inbox, Not Replacing It</h3><p>The best AI support setup isn't a chatbot deflecting tickets. It's an agent that reads the whole queue, drafts the easy replies, and briefs you on the hard ones.</p></a>
+    </div>
+    <div class="note" style="margin-top:40px"><p>New to Userorbit? It's a customer engagement platform for collecting <a href="https://userorbit.com/feedback-boards">feedback</a>, sharing a <a href="https://userorbit.com/product-roadmap">public roadmap</a>, publishing <a href="https://userorbit.com/announcements">announcements</a>, onboarding users with <a href="https://userorbit.com/product-tours">tours</a> and <a href="https://userorbit.com/checklists">checklists</a>, and running <a href="https://userorbit.com/customer-support">support</a> — with <a href="https://userorbit.com/product-analytics">product analytics</a> built in. <a href="https://userorbit.com/pricing">See pricing</a>.</p></div>
+  </div>
+</section>
+<footer class="site">
   <div class="wrap">
     <div class="cols">
       <div>
@@ -92,7 +173,7 @@ export USERORBIT_TEAM_ID="..."</code></pre>
         </ul>
       </div>
       <div>
-        <h4>This skill</h4>
+        <h4>Skill guides</h4>
         <ul>
           <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
           <li><a href="feedback.html">Feedback</a></li>
@@ -109,8 +190,20 @@ export USERORBIT_TEAM_ID="..."</code></pre>
           <li><a href="subscribers.html">Subscribers</a></li>
         </ul>
       </div>
+      <div>
+        <h4>From the blog</h4>
+        <ul>
+          <li><a href="blog/ai-product-management.html">AI Product Management</a></li>
+          <li><a href="blog/close-the-feedback-loop-with-ai-agents.html">Close the Loop</a></li>
+          <li><a href="blog/ai-customer-support-triage.html">AI Support Triage</a></li>
+          <li><a href="blog/index.html">All posts</a></li>
+        </ul>
+      </div>
     </div>
-    <p>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</p>
+    <div class="base">
+      <span>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</span>
+      <span>MIT licensed</span>
+    </div>
   </div>
 </footer>
 </body>

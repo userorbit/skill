@@ -111,4 +111,5 @@ Read-only keys can call list/info/count/search endpoints; read/write keys can ca
 
 - [Userorbit](https://userorbit.com)
 - [Feature guides](https://userorbit.github.io/skill/)
+- [AI product management blog](https://userorbit.github.io/skill/blog/)
 - [Blog post: Manage Userorbit with coding agents](https://userorbit.com/blog/manage-userorbit-with-coding-agents)

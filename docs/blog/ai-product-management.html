@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Is AI Product Management? A Practical Guide — Userorbit Skill Blog</title>
+<meta name="description" content="AI product management explained: how coding agents take on product ops — feedback triage, roadmaps, changelogs, docs, and support — and what stays human.">
+<link rel="canonical" href="https://userorbit.github.io/skill/blog/ai-product-management.html">
+<meta property="og:title" content="What Is AI Product Management? A Practical Guide — Userorbit Skill Blog">
+<meta property="og:description" content="AI product management explained: how coding agents take on product ops — feedback triage, roadmaps, changelogs, docs, and support — and what stays human.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://userorbit.github.io/skill/blog/ai-product-management.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%234f30e8%22/><circle cx=%2250%22 cy=%2250%22 r=%2217%22 fill=%22white%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What Is AI Product Management? A Practical Guide","description":"AI product management explained: how coding agents take on product ops — feedback triage, roadmaps, changelogs, docs, and support — and what stays human.","datePublished":"2026-07-20","author":{"@type":"Organization","name":"Userorbit","url":"https://userorbit.com"},"publisher":{"@type":"Organization","name":"Userorbit","url":"https://userorbit.com"},"mainEntityOfPage":"https://userorbit.github.io/skill/blog/ai-product-management.html"}</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="../index.html">USERORBIT<span class="mark">+( skill )</span></a>
+    <a class="item" href="../index.html#features">Features</a>
+    <a class="item" href="../index.html#setup">Setup</a>
+    <a class="item" href="../blog/index.html">Blog</a>
+    <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
+    <a class="cta" href="https://userorbit.com">userorbit.com</a>
+  </div>
+</header>
+
+<article class="post">
+  <div class="narrow">
+    <p class="eyebrow"><a href="index.html">Blog</a><span class="sep">/</span>Jul 20, 2026</p>
+    <h1>What Is AI Product Management? A Practical Guide</h1>
+    <p class="lede">Coding agents stopped being autocomplete a while ago. Here's what changes when the agent that ships your feature also triages the feedback, updates the roadmap, and writes the changelog.</p>
+    
+      <p>For most of the last decade, "AI in product management" meant a summarize button. You'd get a digest of your feedback, a draft of a PRD, maybe a sentiment score. Useful, but cosmetic — a human still did every actual operation.</p>
+      <p>That's not the interesting version anymore. The interesting version is that the same coding agents that now write and ship production code — Claude Code, Codex, Cursor — can also <em>operate</em> the product layer around that code. Not summarize it. Operate it.</p>
+
+      <h2>The definition that actually holds up</h2>
+      <p>AI product management is the practice of delegating product <strong>operations</strong> to AI agents while keeping product <strong>judgment</strong> with humans. The split matters:</p>
+      <ul>
+        <li><strong>Operations</strong> — triaging feedback, merging duplicates, moving roadmap items, publishing changelogs, drafting help articles, answering known support questions, pulling usage numbers. High volume, well-defined, verifiable.</li>
+        <li><strong>Judgment</strong> — deciding what to build, how to position it, when to say no, which customer to disappoint. Low volume, ambiguous, strategic.</li>
+      </ul>
+      <p>Every failed "AI PM" tool tried to automate judgment. Every workflow that actually sticks automates operations. The good news: operations is where product managers lose most of their week.</p>
+
+      <h2>Why coding agents, specifically</h2>
+      <p>A dedicated "AI PM assistant" app has a context problem: it doesn't know what you just shipped. Your coding agent does — it wrote the diff. That makes it uniquely positioned to do the product ops that <em>follow</em> from shipping:</p>
+      <ul>
+        <li>It knows exactly what changed, so its changelog entry is accurate, not vibes.</li>
+        <li>It knows which feedback items the change resolves, so it can close the loop with the users who asked.</li>
+        <li>It implemented the feature, so it's the best-placed author for the help article.</li>
+      </ul>
+      <p>The missing piece was a connection between the agent and your product stack. That's what agent skills and MCP servers provide: a map of your product platform's API that the agent can call directly. The <a href="https://github.com/userorbit/skill">Userorbit skill</a> is one example — it teaches any coding agent 150+ endpoints across <a href="../feedback.html">feedback</a>, <a href="../roadmap.html">roadmaps</a>, <a href="../announcements.html">announcements</a>, <a href="../help-center.html">help center</a>, <a href="../support.html">support</a>, and <a href="../analytics.html">analytics</a>.</p>
+
+      <h2>What an agentic product workflow looks like</h2>
+      <p>Concretely, here's a post-deploy sequence a coding agent can run today from one prompt:</p>
+      <ol>
+        <li><strong>Close the loop.</strong> Find the feedback items the shipped change resolves, mark them completed, and reply to voters. The public roadmap updates itself, because roadmap columns are views over feedback status.</li>
+        <li><strong>Announce it.</strong> Draft a changelog entry from the actual diff, drop it in the right category, publish — or schedule it for launch morning.</li>
+        <li><strong>Document it.</strong> Write the help article, in the right collection, as a draft for review.</li>
+        <li><strong>Measure it.</strong> A week later: "how is adoption of the export feature?" — and the agent queries product analytics for the real numbers.</li>
+      </ol>
+      <p>None of these steps involve opening a browser tab. All of them used to be the boring half of a PM's job.</p>
+
+      <h2>What stays human</h2>
+      <p>Three things, and they're non-negotiable:</p>
+      <ul>
+        <li><strong>Prioritization.</strong> An agent can rank feedback by votes and trends; it can't know that your biggest prospect churns without SSO. Weighting signals is judgment.</li>
+        <li><strong>Voice decisions.</strong> Agents draft well, but whether an announcement is playful or sober, apologetic or proud — that's positioning.</li>
+        <li><strong>The irreversible calls.</strong> Deprecations, pricing changes, public commitments. Draft with the agent; decide without it.</li>
+      </ul>
+      <p>A practical guardrail: let agents <em>write</em> freely and <em>publish</em> narrowly. Drafts everywhere, publishes only where the blast radius is small or the human has reviewed.</p>
+
+      <h2>How to start</h2>
+      <p>Don't start with strategy decks. Start with one workflow you already resent:</p>
+      <ol>
+        <li>Pick the loop you always skip — for most teams it's closing feedback after shipping, or writing the changelog.</li>
+        <li>Give your agent access to your product platform (via a skill or MCP server).</li>
+        <li>Run it manually a few times with review, then fold it into your definition of done: a feature isn't shipped until the feedback is closed, the changelog is out, and the doc draft exists.</li>
+      </ol>
+      <p>If you're on Userorbit, that's a five-minute setup: install the <a href="https://github.com/userorbit/skill">skill</a>, export an API key, and try "we just shipped X — close the loop." If you're not, <a href="https://userorbit.com">Userorbit</a> gives you the feedback boards, roadmap, changelog, help center, and support inbox for agents to operate on — in one platform instead of five.</p>
+    
+    <div class="post-cta prism">
+      <h3>Give your agent a product platform</h3>
+      <p>Userorbit is the feedback, roadmap, changelog, help center, and support inbox your coding agent can actually operate — via one open-source skill.</p>
+      <a class="btn btn-light" href="https://userorbit.com">Try Userorbit free</a>
+      <a class="btn btn-light" style="margin-left:10px" href="https://github.com/userorbit/skill">Install the skill</a>
+    </div>
+  </div>
+</article>
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Userorbit</h4>
+        <ul>
+          <li><a href="https://userorbit.com">Home</a></li>
+          <li><a href="https://userorbit.com/features">Features</a></li>
+          <li><a href="https://userorbit.com/pricing">Pricing</a></li>
+          <li><a href="https://userorbit.com/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://userorbit.com/feedback-boards">Feedback boards</a></li>
+          <li><a href="https://userorbit.com/product-roadmap">Product roadmap</a></li>
+          <li><a href="https://userorbit.com/product-tours">Product tours</a></li>
+          <li><a href="https://userorbit.com/interactive-product-demos">Interactive demos</a></li>
+          <li><a href="https://userorbit.com/customer-support">Customer support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Skill guides</h4>
+        <ul>
+          <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
+          <li><a href="../feedback.html">Feedback</a></li>
+          <li><a href="../roadmap.html">Roadmap</a></li>
+          <li><a href="../announcements.html">Announcements</a></li>
+          <li><a href="../help-center.html">Help Center</a></li>
+          <li><a href="../tours.html">Tours</a></li>
+          <li><a href="../demos.html">Demos</a></li>
+          <li><a href="../checklists.html">Checklists</a></li>
+          <li><a href="../surveys.html">Surveys</a></li>
+          <li><a href="../support.html">Support</a></li>
+          <li><a href="../workflows.html">Workflows</a></li>
+          <li><a href="../analytics.html">Analytics</a></li>
+          <li><a href="../subscribers.html">Subscribers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>From the blog</h4>
+        <ul>
+          <li><a href="../blog/ai-product-management.html">AI Product Management</a></li>
+          <li><a href="../blog/close-the-feedback-loop-with-ai-agents.html">Close the Loop</a></li>
+          <li><a href="../blog/ai-customer-support-triage.html">AI Support Triage</a></li>
+          <li><a href="../blog/index.html">All posts</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</span>
+      <span>MIT licensed</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

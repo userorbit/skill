@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Support Triage: An Agent Working Your Inbox, Not Replacing It — Userorbit Skill Blog</title>
+<meta name="description" content="How to use an AI coding agent to triage a customer support inbox: queues, drafted replies, private notes, side discussions, and workflow automation — with humans on the sends that matter.">
+<link rel="canonical" href="https://userorbit.github.io/skill/blog/ai-customer-support-triage.html">
+<meta property="og:title" content="AI Support Triage: An Agent Working Your Inbox, Not Replacing It — Userorbit Skill Blog">
+<meta property="og:description" content="How to use an AI coding agent to triage a customer support inbox: queues, drafted replies, private notes, side discussions, and workflow automation — with humans on the sends that matter.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://userorbit.github.io/skill/blog/ai-customer-support-triage.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%234f30e8%22/><circle cx=%2250%22 cy=%2250%22 r=%2217%22 fill=%22white%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AI Support Triage: An Agent Working Your Inbox, Not Replacing It","description":"How to use an AI coding agent to triage a customer support inbox: queues, drafted replies, private notes, side discussions, and workflow automation — with humans on the sends that matter.","datePublished":"2026-07-14","author":{"@type":"Organization","name":"Userorbit","url":"https://userorbit.com"},"publisher":{"@type":"Organization","name":"Userorbit","url":"https://userorbit.com"},"mainEntityOfPage":"https://userorbit.github.io/skill/blog/ai-customer-support-triage.html"}</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="../index.html">USERORBIT<span class="mark">+( skill )</span></a>
+    <a class="item" href="../index.html#features">Features</a>
+    <a class="item" href="../index.html#setup">Setup</a>
+    <a class="item" href="../blog/index.html">Blog</a>
+    <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
+    <a class="cta" href="https://userorbit.com">userorbit.com</a>
+  </div>
+</header>
+
+<article class="post">
+  <div class="narrow">
+    <p class="eyebrow"><a href="index.html">Blog</a><span class="sep">/</span>Jul 14, 2026</p>
+    <h1>AI Support Triage: An Agent Working Your Inbox, Not Replacing It</h1>
+    <p class="lede">The best AI support setup isn't a chatbot deflecting tickets. It's an agent that reads the whole queue, drafts the easy replies, and briefs you on the hard ones.</p>
+    
+      <p>Most "AI support" is a chatbot standing between users and help, deflecting tickets and hoping. There's a quieter setup that works better: keep the inbox, keep the humans, and put an agent to work <em>inside</em> the queue — reading everything, drafting the routine replies, and packaging context for the ones that need a person.</p>
+      <p>This is triage, and it's the highest-leverage thing to automate in support, because it's where the time actually goes: figuring out what each thread is, who should handle it, and what the answer probably is.</p>
+
+      <h2>The morning sweep</h2>
+      <p>With the <a href="https://github.com/userorbit/skill">Userorbit skill</a>, an agent can work the <a href="https://userorbit.com/customer-support">support inbox</a> the way a good support lead does. A single morning prompt:</p>
+      <div class="prompt-block">"Go through the support todo queue. Reply to anything covered by our docs, label and prioritize the rest, and give me a summary with your suggested replies for the tricky ones."</div>
+      <p>The agent pulls the queue with <code>support-threads.list</code>, reads each timeline and its customer context via <code>support-threads.info</code>, and then splits the work:</p>
+      <ul>
+        <li><strong>Known answers</strong> — questions covered by the help center get a reply (<code>support-messages.create</code>) and a status flip to done. Because the agent can search your <a href="../help-center.html">articles</a>, its replies cite real docs instead of hallucinating steps.</li>
+        <li><strong>Bugs</strong> — get a label, a priority, and a private note summarizing the repro. Since the agent also has your codebase, it can often attach a first diagnosis — "this matches the pagination change in last week's release" — before an engineer ever looks.</li>
+        <li><strong>Judgment calls</strong> — refunds, angry customers, ambiguous requests — get drafted replies left as private notes for a human to review, edit, and send.</li>
+      </ul>
+
+      <h2>The escalation path matters most</h2>
+      <p>Where agent triage usually falls down is the handoff. Two features make it clean:</p>
+      <ul>
+        <li><strong>Private notes vs public replies.</strong> Everything risky stays internal by default. The agent's rule of thumb: it may <em>send</em> what documentation supports, it must <em>draft</em> everything else. Notes are how it shows its work.</li>
+        <li><strong>Side discussions.</strong> When a thread needs engineering, the agent opens a Slack or email side discussion from inside the thread — the crash report goes to #engineering with full context, and the answer comes back attached to the ticket instead of lost in a channel.</li>
+      </ul>
+
+      <h2>Graduating to workflows</h2>
+      <p>After a few weeks of prompted triage, patterns emerge — and patterns are what <a href="../workflows.html">workflows</a> are for. The rules the agent kept applying by hand ("anything mentioning invoice → Billing label, billing queue") become trigger-driven automations that run on every new thread, no prompt needed. The agent can build these too: describe the rule, and it creates, publishes, and test-runs the workflow.</p>
+      <p>The division of labor settles into three tiers: workflows handle the mechanical routing, the agent handles reading and drafting, humans handle the sends that carry risk or relationship. Support volume grows; headcount doesn't have to.</p>
+
+      <h2>What to measure</h2>
+      <p>Three numbers tell you whether it's working: first-response time on the todo queue, the share of threads resolved with a docs-backed reply, and how often humans edit the agent's drafts before sending. The first two should fall and rise fast. The third is your quality dial — when edits get rare, widen what the agent may send on its own.</p>
+      <p>The setup is the same as every other agent workflow: a <a href="https://userorbit.com">Userorbit</a> workspace, an API key, and the <a href="https://github.com/userorbit/skill">skill</a>. The full endpoint surface — queues, messages, labels, assignees, snoozing, merging, snippets — is in the <a href="../support.html">support inbox guide</a>.</p>
+    
+    <div class="post-cta prism">
+      <h3>Give your agent a product platform</h3>
+      <p>Userorbit is the feedback, roadmap, changelog, help center, and support inbox your coding agent can actually operate — via one open-source skill.</p>
+      <a class="btn btn-light" href="https://userorbit.com">Try Userorbit free</a>
+      <a class="btn btn-light" style="margin-left:10px" href="https://github.com/userorbit/skill">Install the skill</a>
+    </div>
+  </div>
+</article>
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Userorbit</h4>
+        <ul>
+          <li><a href="https://userorbit.com">Home</a></li>
+          <li><a href="https://userorbit.com/features">Features</a></li>
+          <li><a href="https://userorbit.com/pricing">Pricing</a></li>
+          <li><a href="https://userorbit.com/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://userorbit.com/feedback-boards">Feedback boards</a></li>
+          <li><a href="https://userorbit.com/product-roadmap">Product roadmap</a></li>
+          <li><a href="https://userorbit.com/product-tours">Product tours</a></li>
+          <li><a href="https://userorbit.com/interactive-product-demos">Interactive demos</a></li>
+          <li><a href="https://userorbit.com/customer-support">Customer support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Skill guides</h4>
+        <ul>
+          <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
+          <li><a href="../feedback.html">Feedback</a></li>
+          <li><a href="../roadmap.html">Roadmap</a></li>
+          <li><a href="../announcements.html">Announcements</a></li>
+          <li><a href="../help-center.html">Help Center</a></li>
+          <li><a href="../tours.html">Tours</a></li>
+          <li><a href="../demos.html">Demos</a></li>
+          <li><a href="../checklists.html">Checklists</a></li>
+          <li><a href="../surveys.html">Surveys</a></li>
+          <li><a href="../support.html">Support</a></li>
+          <li><a href="../workflows.html">Workflows</a></li>
+          <li><a href="../analytics.html">Analytics</a></li>
+          <li><a href="../subscribers.html">Subscribers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>From the blog</h4>
+        <ul>
+          <li><a href="../blog/ai-product-management.html">AI Product Management</a></li>
+          <li><a href="../blog/close-the-feedback-loop-with-ai-agents.html">Close the Loop</a></li>
+          <li><a href="../blog/ai-customer-support-triage.html">AI Support Triage</a></li>
+          <li><a href="../blog/index.html">All posts</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</span>
+      <span>MIT licensed</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

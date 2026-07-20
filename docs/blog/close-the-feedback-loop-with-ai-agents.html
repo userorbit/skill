@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Close the Feedback Loop Automatically with a Coding Agent — Userorbit Skill Blog</title>
+<meta name="description" content="A step-by-step workflow for letting your AI coding agent mark feedback completed, update the public roadmap, and publish the changelog the moment a feature ships.">
+<link rel="canonical" href="https://userorbit.github.io/skill/blog/close-the-feedback-loop-with-ai-agents.html">
+<meta property="og:title" content="Close the Feedback Loop Automatically with a Coding Agent — Userorbit Skill Blog">
+<meta property="og:description" content="A step-by-step workflow for letting your AI coding agent mark feedback completed, update the public roadmap, and publish the changelog the moment a feature ships.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://userorbit.github.io/skill/blog/close-the-feedback-loop-with-ai-agents.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%234f30e8%22/><circle cx=%2250%22 cy=%2250%22 r=%2217%22 fill=%22white%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Close the Feedback Loop Automatically with a Coding Agent","description":"A step-by-step workflow for letting your AI coding agent mark feedback completed, update the public roadmap, and publish the changelog the moment a feature ships.","datePublished":"2026-07-17","author":{"@type":"Organization","name":"Userorbit","url":"https://userorbit.com"},"publisher":{"@type":"Organization","name":"Userorbit","url":"https://userorbit.com"},"mainEntityOfPage":"https://userorbit.github.io/skill/blog/close-the-feedback-loop-with-ai-agents.html"}</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="../index.html">USERORBIT<span class="mark">+( skill )</span></a>
+    <a class="item" href="../index.html#features">Features</a>
+    <a class="item" href="../index.html#setup">Setup</a>
+    <a class="item" href="../blog/index.html">Blog</a>
+    <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
+    <a class="cta" href="https://userorbit.com">userorbit.com</a>
+  </div>
+</header>
+
+<article class="post">
+  <div class="narrow">
+    <p class="eyebrow"><a href="index.html">Blog</a><span class="sep">/</span>Jul 17, 2026</p>
+    <h1>Close the Feedback Loop Automatically with a Coding Agent</h1>
+    <p class="lede">Users who ask for a feature and never hear back stop asking. Here's the one-prompt workflow that makes closing the loop part of every deploy.</p>
+    
+      <p>Every product team has the same dirty secret: a feedback board full of items that were actually shipped months ago, still sitting in "planned." The work got done; the loop never got closed. Users who voted never heard about it, the roadmap looks stale, and the next person who searches finds an "open" request for a feature that exists.</p>
+      <p>The reason isn't laziness. Closing the loop is a five-tab chore that happens at the worst possible moment — right after shipping, when you've already moved on. Which makes it a perfect job for the agent that just did the shipping.</p>
+
+      <h2>The workflow</h2>
+      <p>With the <a href="https://github.com/userorbit/skill">Userorbit skill</a> installed, this is one prompt after a deploy:</p>
+      <div class="prompt-block">"We just shipped dark mode. Find the related feedback, mark it completed, reply to the voters, and publish a changelog entry."</div>
+      <p>Under the hood, the agent chains four API calls:</p>
+      <ol>
+        <li><code>feedbacks.list</code> with a search for "dark mode" — finds the matching items and their vote counts.</li>
+        <li><code>feedbacks.update</code> — flips each to <code>completed</code>. Because <a href="../roadmap.html">roadmap columns</a> are live filters over feedback status, the public roadmap moves the items to Shipped on its own. No separate roadmap edit.</li>
+        <li><code>feedback-comments.create</code> — a reply on each item telling voters it's live and how to use it.</li>
+        <li><code>announcements.create</code> with <code>publish: true</code> — the changelog entry, written from the actual diff the agent just worked on, so it describes what really shipped.</li>
+      </ol>
+      <p>Total elapsed time: under a minute, while the deploy pipeline is still running.</p>
+
+      <h2>Why this compounds</h2>
+      <p>Closing the loop isn't hygiene — it's a growth loop:</p>
+      <ul>
+        <li><strong>Voters become announcers.</strong> The people who asked for a feature are the most likely to try it, talk about it, and vote on the next thing. Telling them is free activation.</li>
+        <li><strong>A live roadmap earns trust.</strong> Prospects read public roadmaps as a proxy for velocity. A board where things visibly move from Planned to Shipped is better marketing than the marketing site.</li>
+        <li><strong>Feedback quality rises.</strong> When users see requests get answered, they file better requests. When they see a graveyard, they stop filing at all.</li>
+      </ul>
+
+      <h2>Make it part of the definition of done</h2>
+      <p>The trick to making this stick is not doing it as a favor — it's making it a step in shipping, the same way tests are. Two ways teams wire it in:</p>
+      <ul>
+        <li><strong>Prompt convention:</strong> end feature branches with the close-the-loop prompt. The agent has the diff in context, so accuracy is high.</li>
+        <li><strong>Checklist in the PR template:</strong> "Feedback closed / changelog published / doc drafted" — each one a single agent prompt, so there's no excuse to skip.</li>
+      </ul>
+      <p>For bigger launches, add scheduling: <code>announcements.create</code> accepts <code>scheduledAt</code>, so the agent can queue the announcement for launch morning while the code ships Friday night. And when the announcement should reach inboxes, publishing with an email broadcast is one flag.</p>
+
+      <h2>Setting it up</h2>
+      <p>You need a <a href="https://userorbit.com">Userorbit</a> workspace with a <a href="https://userorbit.com/feedback-boards">feedback board</a>, an API key from Settings → API, and the skill:</p>
+      <div class="prompt-block">claude install-skill https://github.com/userorbit/skill</div>
+      <p>Then export <code>USERORBIT_API_KEY</code> and <code>USERORBIT_TEAM_ID</code>, and try it on the last thing you shipped — odds are there's feedback for it sitting open right now. The full endpoint reference is in the <a href="../feedback.html">feedback guide</a> and <a href="../announcements.html">announcements guide</a>.</p>
+    
+    <div class="post-cta prism">
+      <h3>Give your agent a product platform</h3>
+      <p>Userorbit is the feedback, roadmap, changelog, help center, and support inbox your coding agent can actually operate — via one open-source skill.</p>
+      <a class="btn btn-light" href="https://userorbit.com">Try Userorbit free</a>
+      <a class="btn btn-light" style="margin-left:10px" href="https://github.com/userorbit/skill">Install the skill</a>
+    </div>
+  </div>
+</article>
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Userorbit</h4>
+        <ul>
+          <li><a href="https://userorbit.com">Home</a></li>
+          <li><a href="https://userorbit.com/features">Features</a></li>
+          <li><a href="https://userorbit.com/pricing">Pricing</a></li>
+          <li><a href="https://userorbit.com/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://userorbit.com/feedback-boards">Feedback boards</a></li>
+          <li><a href="https://userorbit.com/product-roadmap">Product roadmap</a></li>
+          <li><a href="https://userorbit.com/product-tours">Product tours</a></li>
+          <li><a href="https://userorbit.com/interactive-product-demos">Interactive demos</a></li>
+          <li><a href="https://userorbit.com/customer-support">Customer support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Skill guides</h4>
+        <ul>
+          <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
+          <li><a href="../feedback.html">Feedback</a></li>
+          <li><a href="../roadmap.html">Roadmap</a></li>
+          <li><a href="../announcements.html">Announcements</a></li>
+          <li><a href="../help-center.html">Help Center</a></li>
+          <li><a href="../tours.html">Tours</a></li>
+          <li><a href="../demos.html">Demos</a></li>
+          <li><a href="../checklists.html">Checklists</a></li>
+          <li><a href="../surveys.html">Surveys</a></li>
+          <li><a href="../support.html">Support</a></li>
+          <li><a href="../workflows.html">Workflows</a></li>
+          <li><a href="../analytics.html">Analytics</a></li>
+          <li><a href="../subscribers.html">Subscribers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>From the blog</h4>
+        <ul>
+          <li><a href="../blog/ai-product-management.html">AI Product Management</a></li>
+          <li><a href="../blog/close-the-feedback-loop-with-ai-agents.html">Close the Loop</a></li>
+          <li><a href="../blog/ai-customer-support-triage.html">AI Support Triage</a></li>
+          <li><a href="../blog/index.html">All posts</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</span>
+      <span>MIT licensed</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
