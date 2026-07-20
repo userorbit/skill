@@ -529,7 +529,7 @@ body{background:var(--bg);color:var(--text);font:16px/1.7 var(--sans);-webkit-fo
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 ::selection{background:rgba(124,77,255,.45);color:#fff}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1152px;margin:0 auto;padding:0 24px}
 .narrow{max-width:760px;margin:0 auto;padding:0 24px}
 
 h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:500}
@@ -561,7 +561,7 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .btn-secondary:hover{border-color:#8e8e98}
 .btn-light{background:#fff;color:#16171d;box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
 
-.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;padding:64px 0 76px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;padding-block:64px 76px}
 .hero .by{margin-bottom:22px}
 .hero .by a{color:var(--ink)}
 .hero h1{margin:0 0 22px;font-size:clamp(34px,4.6vw,60px)}
@@ -569,7 +569,7 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .hero .fine{font-size:14px;color:var(--faint);margin-bottom:36px}
 .hero .actions{display:flex;gap:14px;flex-wrap:wrap}
 .hero-side{padding:28px 0;background:radial-gradient(closest-side at 50% 50%,rgba(124,77,255,.16),transparent)}
-@media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:44px;padding:56px 0 64px}.hero-side{padding:0}}
+@media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:44px;padding-block:56px 64px}.hero-side{padding:0}}
 
 .prism{position:relative;isolation:isolate;overflow:hidden;background:
   radial-gradient(115% 200% at 50% -45%,#d7cbff 0%,#9d7bff 32%,#6432e8 60%,#351580 84%,#1d0b4e 100%)}
@@ -911,7 +911,7 @@ const indexBody = `
       <p class="eyebrow by">by <a href="https://userorbit.com">Userorbit</a></p>
       <h1>Ship the Feature.<br><span class="hl">Everything Else Is One Prompt.</span></h1>
       <p class="sub">The open-source skill that turns Claude Code, Codex, Cursor — any coding agent — into your product ops team on <a href="https://userorbit.com">Userorbit</a>. Changelog published, roadmap updated, feedback answered, docs drafted — before the deploy finishes.</p>
-      <p class="fine">Free &amp; open source · works with any agent that reads SKILL.md</p>
+      <p class="fine">Open source · works with any agent that reads SKILL.md</p>
       <div class="actions">
         <a class="btn btn-primary" href="https://github.com/userorbit/skill">Get the skill</a>
         <a class="btn btn-secondary" href="#features">Explore the guides</a>
