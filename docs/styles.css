@@ -46,14 +46,17 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .btn-secondary:hover{border-color:#8e8e98}
 .btn-light{background:#fff;color:#16171d;box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
 
-.hero{padding:76px 0 40px;text-align:center}
-.hero .orbit-mark{margin:0 auto 28px}
+.hero .wrap{max-width:1280px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:center;padding:64px 0 76px}
+.hero-copy{padding-right:56px}
 .hero .by{margin-bottom:22px}
 .hero .by a{color:var(--ink)}
-.hero h1{max-width:820px;margin:0 auto 22px}
-.hero .sub{font-size:18px;color:var(--muted);max-width:640px;margin:0 auto 10px}
+.hero h1{margin:0 0 22px;font-size:clamp(34px,4.6vw,60px)}
+.hero .sub{font-size:17.5px;color:var(--muted);max-width:520px;margin:0 0 10px}
 .hero .fine{font-size:14px;color:var(--faint);margin-bottom:36px}
-.hero .actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero .actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-side{border-left:1px solid var(--line);padding:28px 0 28px 56px;background:radial-gradient(closest-side at 55% 50%,rgba(124,77,255,.16),transparent)}
+@media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:44px;padding:56px 0 64px}.hero-copy{padding-right:0}.hero-side{border-left:0;padding:0}}
 
 .prism{position:relative;isolation:isolate;overflow:hidden;background:
   repeating-linear-gradient(93deg,rgba(255,255,255,.14) 0 1px,transparent 1px 46px),
@@ -65,7 +68,6 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
   repeating-linear-gradient(87deg,rgba(255,255,255,.08) 0 1px,transparent 1px 17px),
   radial-gradient(130% 170% at 50% -30%,#a8f0e4 0%,#14b8a6 40%,#0b7a6e 66%,#053832 100%)}
 .band{padding:72px 0}
-.hero-band{padding:20px 0 84px;background:radial-gradient(closest-side at 50% 40%,rgba(124,77,255,.18),transparent)}
 
 .term{background:var(--dark);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 0 70px -22px rgba(124,77,255,.35);padding:24px 26px;overflow-x:auto;text-align:left}
 .term pre{font-family:var(--mono);font-size:13.5px;line-height:1.85;color:#c9c9d4;margin:0}
@@ -77,7 +79,8 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .term-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#787885;margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 .hero-term{max-width:760px;margin:0 auto}
-.hero-term .panels{min-height:228px}
+.hero-term pre{font-size:12.5px}
+.hero-term .panels{min-height:212px}
 .term-tabs{display:flex;flex-wrap:wrap;gap:2px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:4px;width:max-content;max-width:100%;margin:22px auto 2px;font-family:var(--mono);font-size:12.5px}
 .term-tabs button{appearance:none;border:0;background:transparent;color:#9a9aa8;padding:7px 13px;border-radius:9px;cursor:pointer;font:inherit;white-space:nowrap}
 .term-tabs button:hover{color:#e8e8f0}
