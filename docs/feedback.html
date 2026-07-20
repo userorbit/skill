@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feedback Management — Userorbit Skill</title>
+<meta name="description" content="Collect, triage, and close the loop on user feedback from your terminal. How to manage feedback in Userorbit with an AI coding agent via the API and MCP.">
+<link rel="canonical" href="https://userorbit.github.io/skill/feedback.html">
+<meta property="og:title" content="Feedback Management — Userorbit Skill">
+<meta property="og:description" content="Collect, triage, and close the loop on user feedback from your terminal. How to manage feedback in Userorbit with an AI coding agent via the API and MCP.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://userorbit.github.io/skill/feedback.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%238b7cf6%22/><circle cx=%2250%22 cy=%2250%22 r=%2216%22 fill=%22white%22/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Userorbit <span>Skill</span></a>
+    <a class="item" href="index.html#features">Features</a>
+    <a class="item" href="index.html#setup">Setup</a>
+    <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
+    <a class="cta" href="https://userorbit.com">userorbit.com</a>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+
+    <p class="eyebrow"><a href="index.html">Userorbit Skill</a> / Feedback</p>
+    <h1>Feedback Management</h1>
+    <p class="tagline">Collect, triage, and close the loop on user feedback from your terminal.</p>
+    <p>Userorbit collects user feedback into boards where users can vote, comment, and follow along. With the skill installed, your coding agent can triage that feedback as part of your normal dev workflow — mark items completed when a fix ships, merge duplicates, or pull up the top-voted requests before planning.</p>
+    <p>Feedback items carry a status (<code>in_review</code>, <code>planned</code>, <code>in_progress</code>, <code>completed</code>, <code>closed</code>, <code>rejected</code>), a priority, tags, and an optional board. Statuses also drive the public roadmap, so updating feedback is how roadmap items move.</p>
+    <div class="callout"><p>This guide covers the agent skill and API. For the full product, see <a href="https://userorbit.com/feedback-boards">Userorbit feedback boards</a>.</p></div>
+
+    <h2>Ask your agent</h2>
+    <ul class="prompts">
+      <li>Show me the top-voted feedback from the last 30 days</li>
+      <li>We just shipped dark mode — mark the dark mode feedback as completed and reply to the voters</li>
+      <li>Merge these two duplicate SSO requests</li>
+    </ul>
+
+    <h2>Endpoints</h2>
+    <p class="muted">All endpoints are <code>POST https://api.userorbit.com/api/v1/&lt;endpoint&gt;</code> with a Bearer API key and <code>x-team-id</code> header.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Endpoint</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><code>feedbacks.create</code></td><td>Create a feedback item (title required)</td></tr>
+        <tr><td><code>feedbacks.list</code></td><td>List with filters: search, status, boardId, sortBy (newest/top/trending), from/to, assignedToMe</td></tr>
+        <tr><td><code>feedbacks.info / update / delete</code></td><td>Read, edit, or remove an item</td></tr>
+        <tr><td><code>feedbacks.merge</code></td><td>Merge one item into another — votes, comments, and tags move over</td></tr>
+        <tr><td><code>feedbacks.vote</code></td><td>Vote on behalf of a subscriber</td></tr>
+        <tr><td><code>feedbacks.archive / restore</code></td><td>Archive and restore</td></tr>
+        <tr><td><code>feedbacks.count</code></td><td>Per-status counts</td></tr>
+        <tr><td><code>feedback-boards.*</code></td><td>Create and manage boards</td></tr>
+        <tr><td><code>feedback-comments.*</code></td><td>Public replies and private internal notes</td></tr>
+        <tr><td><code>tags.* / feedback-board-tags.*</code></td><td>Tag taxonomy and board-tag associations</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Example</h2>
+    <pre><code>curl -s -X POST "https://api.userorbit.com/api/v1/feedbacks.list" \
+  -H "Authorization: Bearer $USERORBIT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "x-team-id: $USERORBIT_TEAM_ID" \
+  -d '{"sortBy": "top", "status": "in_review"}'</code></pre>
+    <p class="muted">Full request and response schemas: <a href="https://github.com/userorbit/skill/blob/main/userorbit/references/api.md">references/api.md</a>.</p>
+
+    <div class="pagenav">
+      <a href="subscribers.html">&larr; Subscribers & Contacts</a>
+      <a href="roadmap.html">Public Roadmap &rarr;</a>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Userorbit</h4>
+        <ul>
+          <li><a href="https://userorbit.com">Home</a></li>
+          <li><a href="https://userorbit.com/features">Features</a></li>
+          <li><a href="https://userorbit.com/pricing">Pricing</a></li>
+          <li><a href="https://userorbit.com/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://userorbit.com/feedback-boards">Feedback boards</a></li>
+          <li><a href="https://userorbit.com/product-roadmap">Product roadmap</a></li>
+          <li><a href="https://userorbit.com/product-tours">Product tours</a></li>
+          <li><a href="https://userorbit.com/interactive-product-demos">Interactive demos</a></li>
+          <li><a href="https://userorbit.com/customer-support">Customer support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>This skill</h4>
+        <ul>
+          <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="announcements.html">Announcements</a></li>
+          <li><a href="help-center.html">Help Center</a></li>
+          <li><a href="tours.html">Tours</a></li>
+          <li><a href="demos.html">Demos</a></li>
+          <li><a href="checklists.html">Checklists</a></li>
+          <li><a href="surveys.html">Surveys</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="workflows.html">Workflows</a></li>
+          <li><a href="analytics.html">Analytics</a></li>
+          <li><a href="subscribers.html">Subscribers</a></li>
+        </ul>
+      </div>
+    </div>
+    <p>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</p>
+  </div>
+</footer>
+</body>
+</html>

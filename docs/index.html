@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Userorbit Skill — manage Userorbit from any AI coding agent</title>
+<meta name="description" content="An agent skill that teaches Claude Code, Codex, and Cursor to manage Userorbit: feedback, roadmap, announcements, help center, tours, demos, surveys, support inbox, and analytics via the API.">
+<link rel="canonical" href="https://userorbit.github.io/skill/">
+<meta property="og:title" content="Userorbit Skill — manage Userorbit from any AI coding agent">
+<meta property="og:description" content="An agent skill that teaches Claude Code, Codex, and Cursor to manage Userorbit: feedback, roadmap, announcements, help center, tours, demos, surveys, support inbox, and analytics via the API.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://userorbit.github.io/skill/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%238b7cf6%22/><circle cx=%2250%22 cy=%2250%22 r=%2216%22 fill=%22white%22/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Userorbit <span>Skill</span></a>
+    <a class="item" href="index.html#features">Features</a>
+    <a class="item" href="index.html#setup">Setup</a>
+    <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
+    <a class="cta" href="https://userorbit.com">userorbit.com</a>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+
+    <p class="eyebrow">Agent skill for Userorbit</p>
+    <h1>Run your whole product workflow from your coding agent</h1>
+    <p class="tagline">The Userorbit skill teaches Claude Code, Codex, Cursor, and any other AI coding agent to manage <a href="https://userorbit.com">Userorbit</a> — feedback, roadmap, changelog, help center, tours, demos, surveys, and the support inbox — straight from your terminal.</p>
+
+    <pre><code>claude install-skill https://github.com/userorbit/skill</code></pre>
+
+    <p>Ship a feature, then tell your agent: <em>"Publish a changelog, mark the related feedback as completed, and draft a help article."</em> It's done before you've opened a browser tab.</p>
+
+    <h2 id="features">What it can do</h2>
+    <div class="grid">
+      <a class="card" href="feedback.html"><h3>Feedback Management</h3><p>Collect, triage, and close the loop on user feedback from your terminal.</p></a>
+      <a class="card" href="roadmap.html"><h3>Public Roadmap</h3><p>Keep your public roadmap in sync with what you actually ship.</p></a>
+      <a class="card" href="announcements.html"><h3>Announcements & Changelog</h3><p>Publish product updates the moment the deploy goes green.</p></a>
+      <a class="card" href="help-center.html"><h3>Help Center Articles</h3><p>Write and publish documentation with the agent that wrote the code.</p></a>
+      <a class="card" href="tours.html"><h3>Product Tours</h3><p>Build, publish, and translate in-app product tours programmatically.</p></a>
+      <a class="card" href="demos.html"><h3>Interactive Demos</h3><p>Publish interactive product demos and turn them into documentation.</p></a>
+      <a class="card" href="checklists.html"><h3>Onboarding Checklists</h3><p>Ship guided onboarding checklists without touching the dashboard.</p></a>
+      <a class="card" href="surveys.html"><h3>In-App Surveys</h3><p>Launch targeted in-app surveys from a prompt.</p></a>
+      <a class="card" href="support.html"><h3>Support Inbox</h3><p>Triage, reply, and resolve support threads with your agent.</p></a>
+      <a class="card" href="workflows.html"><h3>Support Workflows</h3><p>Automate support with trigger-driven workflow graphs.</p></a>
+      <a class="card" href="analytics.html"><h3>Product Analytics</h3><p>Query active users, new users, and event trends straight from your agent.</p></a>
+      <a class="card" href="subscribers.html"><h3>Subscribers & Contacts</h3><p>Manage the people behind the feedback, votes, and support threads.</p></a>
+    </div>
+
+    <h2 id="setup">Setup</h2>
+    <h3>Claude Code</h3>
+    <pre><code>claude install-skill https://github.com/userorbit/skill</code></pre>
+    <h3>Codex</h3>
+    <pre><code>git clone https://github.com/userorbit/skill.git ~/.codex/skills/userorbit</code></pre>
+    <h3>Any other agent</h3>
+    <p>Clone the repo and point your agent's context at <code>userorbit/SKILL.md</code>. There's also a hosted MCP server at <code>https://api.userorbit.com/mcp</code> if your tool speaks MCP.</p>
+
+    <h3>Authentication</h3>
+    <p>Grab an API key and team ID from <strong>Settings &rarr; API</strong> in your <a href="https://userorbit.com">Userorbit</a> workspace, then:</p>
+    <pre><code>export USERORBIT_API_KEY="uo_..."
+export USERORBIT_TEAM_ID="..."</code></pre>
+    <p class="muted">Read-only keys can call list/info/count/search endpoints; read/write keys can call everything.</p>
+
+    <h2>How it works</h2>
+    <p>Every Userorbit resource is a <code>POST</code> endpoint at <code>https://api.userorbit.com/api/v1/&lt;resource&gt;.&lt;action&gt;</code>. The skill gives your agent a compact map of all of them — 150+ endpoints — plus required fields, enums, and common workflows, so it can chain calls correctly: find the collection, create the announcement, publish it.</p>
+    <div class="callout"><p>New to Userorbit? It's a customer engagement platform for collecting <a href="https://userorbit.com/feedback-boards">feedback</a>, sharing a <a href="https://userorbit.com/product-roadmap">public roadmap</a>, publishing <a href="https://userorbit.com/announcements">announcements</a>, onboarding users with <a href="https://userorbit.com/product-tours">tours</a> and <a href="https://userorbit.com/checklists">checklists</a>, and running <a href="https://userorbit.com/customer-support">support</a> — with <a href="https://userorbit.com/product-analytics">product analytics</a> built in. <a href="https://userorbit.com/pricing">See pricing</a>.</p></div>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Userorbit</h4>
+        <ul>
+          <li><a href="https://userorbit.com">Home</a></li>
+          <li><a href="https://userorbit.com/features">Features</a></li>
+          <li><a href="https://userorbit.com/pricing">Pricing</a></li>
+          <li><a href="https://userorbit.com/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://userorbit.com/feedback-boards">Feedback boards</a></li>
+          <li><a href="https://userorbit.com/product-roadmap">Product roadmap</a></li>
+          <li><a href="https://userorbit.com/product-tours">Product tours</a></li>
+          <li><a href="https://userorbit.com/interactive-product-demos">Interactive demos</a></li>
+          <li><a href="https://userorbit.com/customer-support">Customer support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>This skill</h4>
+        <ul>
+          <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="announcements.html">Announcements</a></li>
+          <li><a href="help-center.html">Help Center</a></li>
+          <li><a href="tours.html">Tours</a></li>
+          <li><a href="demos.html">Demos</a></li>
+          <li><a href="checklists.html">Checklists</a></li>
+          <li><a href="surveys.html">Surveys</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="workflows.html">Workflows</a></li>
+          <li><a href="analytics.html">Analytics</a></li>
+          <li><a href="subscribers.html">Subscribers</a></li>
+        </ul>
+      </div>
+    </div>
+    <p>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</p>
+  </div>
+</footer>
+</body>
+</html>

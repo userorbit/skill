@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support Inbox — Userorbit Skill</title>
+<meta name="description" content="Triage, reply, and resolve support threads with your agent. How to manage support in Userorbit with an AI coding agent via the API and MCP.">
+<link rel="canonical" href="https://userorbit.github.io/skill/support.html">
+<meta property="og:title" content="Support Inbox — Userorbit Skill">
+<meta property="og:description" content="Triage, reply, and resolve support threads with your agent. How to manage support in Userorbit with an AI coding agent via the API and MCP.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://userorbit.github.io/skill/support.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%238b7cf6%22/><circle cx=%2250%22 cy=%2250%22 r=%2216%22 fill=%22white%22/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">Userorbit <span>Skill</span></a>
+    <a class="item" href="index.html#features">Features</a>
+    <a class="item" href="index.html#setup">Setup</a>
+    <a class="item" href="https://github.com/userorbit/skill">GitHub</a>
+    <a class="cta" href="https://userorbit.com">userorbit.com</a>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+
+    <p class="eyebrow"><a href="index.html">Userorbit Skill</a> / Support</p>
+    <h1>Support Inbox</h1>
+    <p class="tagline">Triage, reply, and resolve support threads with your agent.</p>
+    <p>The Userorbit support inbox unifies conversations from your widget, help center, portal, email, and Slack. The skill exposes the whole inbox: queues, full thread timelines with customer context, agent replies, private notes, labels, assignees, snoozing, and merging duplicates.</p>
+    <p>Side discussions let the agent loop in teammates over email or Slack without leaving the thread — ask engineering about a bug in a linked Slack thread, then resolve the discussion when it's answered.</p>
+    <div class="callout"><p>This guide covers the agent skill and API. For the full product, see <a href="https://userorbit.com/customer-support">Userorbit customer support</a>.</p></div>
+
+    <h2>Ask your agent</h2>
+    <ul class="prompts">
+      <li>Go through the support todo queue and summarize each thread</li>
+      <li>Reply to thread X with the fix instructions, then mark it done</li>
+      <li>Leave a private note on the billing thread and assign it to Sarah</li>
+      <li>Start a Slack side discussion with #engineering about this crash report</li>
+    </ul>
+
+    <h2>Endpoints</h2>
+    <p class="muted">All endpoints are <code>POST https://api.userorbit.com/api/v1/&lt;endpoint&gt;</code> with a Bearer API key and <code>x-team-id</code> header.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Endpoint</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><code>support-threads.list</code></td><td>Queues: todo, mine, unassigned, snoozed, done, all — plus status, priority, label, search filters</td></tr>
+        <tr><td><code>support-threads.info</code></td><td>Full timeline + customer context</td></tr>
+        <tr><td><code>support-threads.create / update</code></td><td>Open threads, set status, priority, assignee, snooze</td></tr>
+        <tr><td><code>support-messages.create</code></td><td>Agent replies and private notes</td></tr>
+        <tr><td><code>support-thread-labels.update / support-thread-assignees.update</code></td><td>Labels and co-assignees</td></tr>
+        <tr><td><code>support-threads.merge</code></td><td>Merge duplicate threads</td></tr>
+        <tr><td><code>support-discussions.*</code></td><td>Email/Slack side discussions with reply, resolve, reopen</td></tr>
+        <tr><td><code>support-labels.* / support-snippets.*</code></td><td>Labels and canned reply snippets</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Example</h2>
+    <pre><code>curl -s -X POST "https://api.userorbit.com/api/v1/support-threads.list" \
+  -H "Authorization: Bearer $USERORBIT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "x-team-id: $USERORBIT_TEAM_ID" \
+  -d '{"queue": "todo", "sort": {"field": "updatedAt", "direction": "desc"}}'</code></pre>
+    <p class="muted">Full request and response schemas: <a href="https://github.com/userorbit/skill/blob/main/userorbit/references/api.md">references/api.md</a>.</p>
+
+    <div class="pagenav">
+      <a href="surveys.html">&larr; In-App Surveys</a>
+      <a href="workflows.html">Support Workflows &rarr;</a>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Userorbit</h4>
+        <ul>
+          <li><a href="https://userorbit.com">Home</a></li>
+          <li><a href="https://userorbit.com/features">Features</a></li>
+          <li><a href="https://userorbit.com/pricing">Pricing</a></li>
+          <li><a href="https://userorbit.com/blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://userorbit.com/feedback-boards">Feedback boards</a></li>
+          <li><a href="https://userorbit.com/product-roadmap">Product roadmap</a></li>
+          <li><a href="https://userorbit.com/product-tours">Product tours</a></li>
+          <li><a href="https://userorbit.com/interactive-product-demos">Interactive demos</a></li>
+          <li><a href="https://userorbit.com/customer-support">Customer support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>This skill</h4>
+        <ul>
+          <li><a href="https://github.com/userorbit/skill">Source on GitHub</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="announcements.html">Announcements</a></li>
+          <li><a href="help-center.html">Help Center</a></li>
+          <li><a href="tours.html">Tours</a></li>
+          <li><a href="demos.html">Demos</a></li>
+          <li><a href="checklists.html">Checklists</a></li>
+          <li><a href="surveys.html">Surveys</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="workflows.html">Workflows</a></li>
+          <li><a href="analytics.html">Analytics</a></li>
+          <li><a href="subscribers.html">Subscribers</a></li>
+        </ul>
+      </div>
+    </div>
+    <p>Userorbit Skill — manage <a href="https://userorbit.com">Userorbit</a> from any AI coding agent.</p>
+  </div>
+</footer>
+</body>
+</html>
