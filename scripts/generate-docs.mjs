@@ -586,6 +586,22 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .term .c-str{color:#8ad0ff}
 .term-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#787885;margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
+.hero-term{max-width:760px;margin:0 auto}
+.hero-term .panels{min-height:228px}
+.term-tabs{display:flex;flex-wrap:wrap;gap:2px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:4px;width:max-content;max-width:100%;margin:22px auto 2px;font-family:var(--mono);font-size:12.5px}
+.term-tabs button{appearance:none;border:0;background:transparent;color:#9a9aa8;padding:7px 13px;border-radius:9px;cursor:pointer;font:inherit;white-space:nowrap}
+.term-tabs button:hover{color:#e8e8f0}
+.term-tabs button.active{background:#fff;color:var(--dark);font-weight:600}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+.bene-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:40px}
+.bene{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.bene h3{margin-bottom:8px}
+.bene p{font-size:14.5px;color:var(--muted);line-height:1.6;margin-bottom:18px}
+.bene .try{margin-top:auto;font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.bene .try::before{content:"\\203A ";color:var(--brand);font-weight:700}
+
 section.block{padding:84px 0;border-top:1px solid var(--line)}
 .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:start}
 @media(max-width:820px){.split{grid-template-columns:1fr}}
@@ -633,7 +649,8 @@ article.doc h3{margin:28px 0 10px}
 article.doc ul,article.doc ol{margin:0 0 16px 22px}
 article.doc li{margin-bottom:8px}
 code{font-family:var(--mono);font-size:.88em;background:var(--bg-soft);border:1px solid var(--line);border-radius:6px;padding:1.5px 6px;color:var(--ink)}
-.term code,.install-card code{background:none;border:none;padding:0}
+.term code{background:none;border:none;padding:0;color:inherit;font-size:inherit}
+.install-card code{background:none;border:none;padding:0}
 pre.plain{background:var(--dark);border-radius:var(--radius);border:1px solid var(--dark-line);padding:18px 20px;overflow-x:auto;margin:16px 0}
 pre.plain code{background:none;border:none;padding:0;font-size:13px;line-height:1.7;color:#e8e8f0}
 
@@ -679,8 +696,6 @@ footer.site a{color:var(--muted)}
 footer.site a:hover{color:var(--ink)}
 footer.site .base{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--faint)}
 `;
-
-const ORBIT_MARK = `<svg class="orbit-mark" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="22" cy="22" r="19" stroke="#4f30e8" stroke-width="2.5" opacity="0.35"/><circle cx="22" cy="22" r="8" fill="#4f30e8"/><circle cx="37.5" cy="11" r="4" fill="#a9a2ff"/></svg>`;
 
 function page({ title, description, path, root, body, extraHead = "" }) {
   const canonical = `${SITE}/${path}`;
@@ -814,29 +829,84 @@ function featurePage(f, i) {
   });
 }
 
-const heroTerm = `<div class="term" style="max-width:760px;margin:0 auto">
-  <div class="term-label"><span>Agent session</span><span>claude&nbsp;code</span></div>
-  <pre><code><span class="cmd">$ claude "we shipped dark mode — update userorbit"</span>
+const clients = [
+  {
+    id: "claude",
+    label: "Claude Code",
+    panel: `<span class="cmd">$ claude install-skill https://github.com/userorbit/skill</span>
+<span class="c-ok">&#10003;</span> <span class="c-dim">userorbit skill installed</span>
 
-<span class="c-ok">&#10003;</span> <span class="c-key">feedbacks.list</span>        <span class="c-dim">3 matching items found</span>
-<span class="c-ok">&#10003;</span> <span class="c-key">feedbacks.update</span>      status &rarr; <span class="c-str">completed</span>  <span class="c-dim">&times;3</span>
-<span class="c-ok">&#10003;</span> <span class="c-key">announcements.create</span>  <span class="c-str">"Dark mode is here"</span> — published
-<span class="c-ok">&#10003;</span> <span class="c-key">articles.create</span>       draft: <span class="c-str">"Using dark mode"</span>
+<span class="cmd">$ claude "we shipped dark mode — close the loop"</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">feedbacks.update</span>       <span class="c-dim">23 items &rarr;</span> <span class="c-str">completed</span><span class="c-dim">, voters replied</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">announcements.create</span>   <span class="c-str">"Dark mode is here"</span> <span class="c-dim">— published</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">articles.create</span>        <span class="c-dim">draft:</span> <span class="c-str">"Using dark mode"</span>
 
-<span class="c-dim">Roadmap, changelog &amp; help center updated. 0 browser tabs opened.</span></code></pre>
+<span class="c-dim">Changelog live. Roadmap moved itself. 23 people heard back.</span>`,
+  },
+  {
+    id: "codex",
+    label: "Codex",
+    panel: `<span class="cmd">$ git clone https://github.com/userorbit/skill.git ~/.codex/skills/userorbit</span>
+<span class="c-ok">&#10003;</span> <span class="c-dim">skill picked up on the next run</span>
+
+<span class="cmd">$ codex "what should we build next?"</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">feedbacks.list</span>  <span class="c-dim">sortBy:</span> <span class="c-str">top</span>
+<span class="c-dim">  1.</span> SSO for Google Workspace   <span class="c-str">184 votes</span> <span class="c-dim">· trending</span>
+<span class="c-dim">  2.</span> CSV export                  <span class="c-str">97 votes</span>
+<span class="c-dim">  3.</span> Slack notifications         <span class="c-str">66 votes</span>`,
+  },
+  {
+    id: "cursor",
+    label: "Cursor",
+    panel: `<span class="cmd">$ git clone https://github.com/userorbit/skill.git /tmp/uo-skill</span>
+<span class="cmd">$ cp /tmp/uo-skill/userorbit/SKILL.md .cursor/rules/userorbit.md</span>
+
+<span class="c-dim">In Cursor:</span> <span class="cmd">"publish the checkout demo, then turn it into a help article"</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">demos.publish</span>         <span class="c-str">"Checkout flow"</span> <span class="c-dim">— live</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">demo-articles.create</span>  <span class="c-dim">how-to guide drafted from the demo's steps</span>`,
+  },
+  {
+    id: "opencode",
+    label: "OpenCode",
+    panel: `<span class="cmd">$ git clone https://github.com/userorbit/skill.git /tmp/uo-skill</span>
+<span class="cmd">$ cp -r /tmp/uo-skill/userorbit ~/.config/opencode/skills/userorbit</span>
+
+<span class="cmd">$ opencode "triage the support todo queue"</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">support-threads.list</span>  <span class="c-dim">14 open threads read</span>
+<span class="c-ok">&#10003;</span> <span class="c-dim">6 answered from the help center · 5 labeled &amp; prioritized</span>
+<span class="c-ok">&#10003;</span> <span class="c-dim">3 tricky ones: reply drafts left as private notes</span>`,
+  },
+  {
+    id: "mcp",
+    label: "Hosted MCP",
+    panel: `<span class="cmd">$ claude mcp add --transport http userorbit https://api.userorbit.com/mcp</span>
+<span class="c-ok">&#10003;</span> <span class="c-dim">connected via OAuth — no API key to manage</span>
+
+<span class="cmd">$ claude "how's the launch doing?"</span>
+<span class="c-ok">&#10003;</span> <span class="c-key">analytics.query</span>  <span class="c-dim">metric:</span> <span class="c-str">activeUsers</span> <span class="c-dim">interval:</span> <span class="c-str">week</span>
+<span class="c-dim">  &#9602; &#9603; &#9605; &#9606; &#9608;</span>   <span class="c-str">+38%</span> <span class="c-dim">since launch week</span>`,
+  },
+];
+
+const heroTerm = `<div class="term hero-term">
+  <div class="term-label"><span>Agent session</span><span>userorbit skill</span></div>
+  <div class="panels">
+    ${clients.map((c, i) => `<div class="tab-panel${i === 0 ? " active" : ""}" data-tab="${c.id}"><pre><code>${c.panel}</code></pre></div>`).join("\n    ")}
+  </div>
+  <div class="term-tabs" role="tablist">
+    ${clients.map((c, i) => `<button type="button"${i === 0 ? ' class="active"' : ""} data-tab="${c.id}">${c.label}</button>`).join("\n    ")}
+  </div>
 </div>`;
 
 const indexBody = `
 <section class="hero">
   <div class="wrap">
-    ${ORBIT_MARK}
-    <h1>The Product Toolkit <span class="hl">for Coding Agents</span></h1>
-    <p class="sub">One skill teaches Claude Code, Codex, Cursor — any AI agent — to run <a href="https://userorbit.com">Userorbit</a>: feedback, roadmap, changelog, help center, tours, demos, surveys, and support.</p>
-    <p class="fine">Free and open source. One SKILL.md, 150+ endpoints.</p>
+    <h1>Ship the Feature.<br><span class="hl">Everything Else Is One Prompt.</span></h1>
+    <p class="sub">The open-source skill that turns Claude Code, Codex, Cursor — any coding agent — into your product ops team on <a href="https://userorbit.com">Userorbit</a>. Changelog published, roadmap updated, feedback answered, docs drafted — before the deploy finishes.</p>
+    <p class="fine">Free &amp; open source · works with any agent that reads SKILL.md</p>
     <div class="actions">
-      <a class="btn btn-primary" href="#setup">Get started</a>
+      <a class="btn btn-primary" href="https://github.com/userorbit/skill">Get the skill</a>
       <a class="btn btn-secondary" href="#features">Explore the guides</a>
-      <a class="btn btn-secondary" href="https://github.com/userorbit/skill">View on GitHub</a>
     </div>
   </div>
 </section>
@@ -844,6 +914,36 @@ const indexBody = `
 <div class="prism band">
   <div class="wrap">${heroTerm}</div>
 </div>
+
+<section class="block" id="benefits">
+  <div class="wrap">
+    <p class="eyebrow">What changes</p>
+    <h2>Product ops you never do by hand again</h2>
+    <p class="lead" style="max-width:640px;margin-top:12px;color:var(--muted)">Your agent already knows what shipped — it wrote the diff. Give it the skill, and the follow-through stops being your job.</p>
+    <div class="bene-grid">
+      <div class="bene">
+        <h3>The changelog writes itself</h3>
+        <p>The announcement is drafted from the actual diff — accurate, categorized, published now or scheduled for launch morning. Users find out the day it ships, not whenever someone remembers.</p>
+        <span class="try">publish a changelog for what we just merged</span>
+      </div>
+      <div class="bene">
+        <h3>Feedback answered the day it ships</h3>
+        <p>The people who asked get a reply, items flip to completed, and the public roadmap moves itself — columns are live views over feedback status. No stale board, no ghosted voters.</p>
+        <span class="try">mark the dark mode feedback completed and reply to voters</span>
+      </div>
+      <div class="bene">
+        <h3>Docs by the agent that built it</h3>
+        <p>The best-placed author for a feature's help article is the agent that implemented it. It drafts in the right category, with revisions tracked, ready for your review.</p>
+        <span class="try">draft a help article for the new export feature</span>
+      </div>
+      <div class="bene">
+        <h3>Support triaged before standup</h3>
+        <p>The agent reads the whole queue with your docs and codebase in context — answers what's documented, labels and prioritizes the rest, and leaves reply drafts on the tricky ones.</p>
+        <span class="try">work through the support todo queue</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="block" id="setup">
   <div class="wrap split">
@@ -855,20 +955,20 @@ const indexBody = `
     </div>
     <div>
       <div class="install-card">
-        <span class="k">Claude Code</span>
+        <span class="k">1 · Install</span>
         <code>claude install-skill https://github.com/userorbit/skill</code>
       </div>
       <div class="install-card">
-        <span class="k">Codex</span>
-        <code>git clone https://github.com/userorbit/skill.git ~/.codex/skills/userorbit</code>
-      </div>
-      <div class="install-card">
-        <span class="k">Any agent</span>
-        <code>git clone https://github.com/userorbit/skill.git &amp;&amp; point context at userorbit/SKILL.md</code>
-      </div>
-      <div class="install-card">
-        <span class="k">Authenticate</span>
+        <span class="k">2 · Authenticate</span>
         <code>export USERORBIT_API_KEY="uo_..."<br>export USERORBIT_TEAM_ID="..."</code>
+      </div>
+      <div class="install-card">
+        <span class="k">3 · Prompt</span>
+        <code>"we shipped dark mode — close the loop"</code>
+      </div>
+      <div class="install-card">
+        <span class="k">Prefer MCP? OAuth, no keys to manage</span>
+        <code>claude mcp add --transport http userorbit https://api.userorbit.com/mcp</code>
       </div>
     </div>
   </div>
@@ -889,29 +989,16 @@ const indexBody = `
     <div>
       <p class="eyebrow">Why it works</p>
       <h2>The agent that ships the code closes the loop</h2>
-      <p class="lead" style="margin-top:14px">Your coding agent already knows what changed — it wrote the diff. The skill gives it a compact map of every Userorbit endpoint, required fields, enums, and workflows, so it can chain calls correctly: find the collection, create the announcement, publish it.</p>
+      <p class="lead" style="margin-top:14px">A separate "AI PM tool" doesn't know what you just built. Your coding agent does — it wrote the diff. The skill hands it the map of your whole product platform, so it can finish the job it started.</p>
+    </div>
+    <div>
       <ul class="checks">
         <li>Changelog entries written from the actual diff</li>
         <li>Feedback closed and voters notified when the fix ships</li>
         <li>Roadmap moves itself — columns are live views over feedback status</li>
         <li>Help articles drafted by the agent that built the feature</li>
-        <li>Support triaged with your docs and codebase in context</li>
+        <li>Support answered with your docs and codebase in context</li>
       </ul>
-    </div>
-    <div>
-      <div class="stats">
-        <div class="stat"><span class="n">150+</span><span class="l">API endpoints mapped</span></div>
-        <div class="stat"><span class="n">12</span><span class="l">feature areas covered</span></div>
-        <div class="stat"><span class="n">2</span><span class="l">ways to connect — skill or hosted MCP</span></div>
-      </div>
-      <div class="term" style="margin-top:40px">
-        <div class="term-label"><span>How it works</span><span>rest api</span></div>
-        <pre><code><span class="c-dim"># every resource is one POST away</span>
-<span class="cmd">POST</span> <span class="c-key">https://api.userorbit.com/api/v1/&lt;resource&gt;.&lt;action&gt;</span>
-
-<span class="c-dim">Authorization:</span> Bearer <span class="c-str">$USERORBIT_API_KEY</span>
-<span class="c-dim">x-team-id:</span> <span class="c-str">$USERORBIT_TEAM_ID</span></code></pre>
-      </div>
     </div>
   </div>
 </div>
@@ -925,7 +1012,14 @@ const indexBody = `
     </div>
     <div class="note" style="margin-top:40px"><p>New to Userorbit? It's a customer engagement platform for collecting <a href="https://userorbit.com/feedback-boards">feedback</a>, sharing a <a href="https://userorbit.com/product-roadmap">public roadmap</a>, publishing <a href="https://userorbit.com/announcements">announcements</a>, onboarding users with <a href="https://userorbit.com/product-tours">tours</a> and <a href="https://userorbit.com/checklists">checklists</a>, and running <a href="https://userorbit.com/customer-support">support</a> — with <a href="https://userorbit.com/product-analytics">product analytics</a> built in. <a href="https://userorbit.com/pricing">See pricing</a>.</p></div>
   </div>
-</section>`;
+</section>
+
+<script>
+document.querySelectorAll(".term-tabs button").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".term-tabs button").forEach((x) => x.classList.toggle("active", x === b));
+  document.querySelectorAll(".tab-panel").forEach((p) => p.classList.toggle("active", p.dataset.tab === b.dataset.tab));
+}));
+</script>`;
 
 function postPage(p) {
   const jsonLd = `<script type="application/ld+json">${JSON.stringify({
