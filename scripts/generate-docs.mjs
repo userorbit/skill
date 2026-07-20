@@ -561,26 +561,20 @@ header.site{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--
 .btn-secondary:hover{border-color:#8e8e98}
 .btn-light{background:#fff;color:#16171d;box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
 
-.hero .wrap{max-width:1280px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:center;padding:64px 0 76px}
-.hero-copy{padding-right:56px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;padding:64px 0 76px}
 .hero .by{margin-bottom:22px}
 .hero .by a{color:var(--ink)}
 .hero h1{margin:0 0 22px;font-size:clamp(34px,4.6vw,60px)}
 .hero .sub{font-size:17.5px;color:var(--muted);max-width:520px;margin:0 0 10px}
 .hero .fine{font-size:14px;color:var(--faint);margin-bottom:36px}
 .hero .actions{display:flex;gap:14px;flex-wrap:wrap}
-.hero-side{border-left:1px solid var(--line);padding:28px 0 28px 56px;background:radial-gradient(closest-side at 55% 50%,rgba(124,77,255,.16),transparent)}
-@media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:44px;padding:56px 0 64px}.hero-copy{padding-right:0}.hero-side{border-left:0;padding:0}}
+.hero-side{padding:28px 0;background:radial-gradient(closest-side at 50% 50%,rgba(124,77,255,.16),transparent)}
+@media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:44px;padding:56px 0 64px}.hero-side{padding:0}}
 
 .prism{position:relative;isolation:isolate;overflow:hidden;background:
-  repeating-conic-gradient(from -34deg at 50% -90%,rgba(255,255,255,.09) 0deg .8deg,transparent .8deg 6.5deg),
-  repeating-conic-gradient(from -30deg at 50% -90%,rgba(255,255,255,.05) 0deg .4deg,transparent .4deg 3.1deg),
   radial-gradient(115% 200% at 50% -45%,#d7cbff 0%,#9d7bff 32%,#6432e8 60%,#351580 84%,#1d0b4e 100%)}
 .prism::after{content:"";position:absolute;inset:0;z-index:-1;background-image:${GRAIN};mix-blend-mode:overlay;opacity:.9;pointer-events:none}
 .prism.teal{background:
-  repeating-conic-gradient(from -34deg at 50% -90%,rgba(255,255,255,.09) 0deg .8deg,transparent .8deg 6.5deg),
-  repeating-conic-gradient(from -30deg at 50% -90%,rgba(255,255,255,.05) 0deg .4deg,transparent .4deg 3.1deg),
   radial-gradient(115% 200% at 50% -45%,#b5f2e7 0%,#2dd4bf 32%,#0d9488 60%,#0b5a52 84%,#042f2a 100%)}
 .band{padding:72px 0}
 
